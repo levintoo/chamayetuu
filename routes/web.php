@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\DashboardHomeComponent;
+use App\Http\Livewire\RegisterStepTwoComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::middleware(['registration_completed'])->group(function () {
+//Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
+    Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
+});
+

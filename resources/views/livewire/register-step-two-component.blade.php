@@ -27,11 +27,12 @@
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <x-jet-button>
-                        {{ __('Email Password Reset Link') }}
-                    </x-jet-button>
+
                 </div>
             </form>
+            <button class="btn btn-primary" wire:click="verifyuser">
+                Email  Reset Linkin
+            </button>
         </div>
     </x-jet-authentication-card>
 </x-guest-layout>

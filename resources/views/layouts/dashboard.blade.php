@@ -132,7 +132,7 @@
                         <span class="nav-text">Payment</span>
                     </a>
                 </li>
-                <li><a href="invoice.html">
+                <li><a href="{{route('transactions')}}">
                         <span><i class="ri-file-copy-2-line"></i></span>
                         <span class="nav-text">Invoice</span>
                     </a>

@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\RegisterStepTwoComponent;
+use App\Http\Livewire\TransactionsComponent;
 use App\Http\Livewire\WalletComponent;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
     Route::get('/wallet',WalletComponent::class)->name('wallet');
+    Route::get('/transactions',TransactionsComponent::class)->name('transactions');
 
         Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
                 return view('dashboard');

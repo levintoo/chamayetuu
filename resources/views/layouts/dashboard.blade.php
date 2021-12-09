@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Intez</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png') }}">
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css') }}">
 </head>
 
 <body class="dashboard">
@@ -114,7 +114,7 @@
     </div>
 
     <div class="sidebar">
-        <div class="brand-logo"><a class="full-logo" href="index.html"><img src="images/logoi.png" alt="" width="30"></a></div>
+        <div class="brand-logo"><a class="full-logo" href="index.html"><img src="{{asset('assets/images/logoi.png') }}" alt="" width="30"></a></div>
         <div class="menu">
             <ul>
                 <li><a href="index-2.html">
@@ -167,6 +167,7 @@
                     </div>
                 </div>
             </div>
+            {{$slot}}
             <div class="row">
                 <div class="col-xl-6 col-lg-6">
                     <div class="card">
@@ -384,7 +385,7 @@
                                 <ul>
                                     <li class="d-flex justify-content-between active">
                                         <div class="d-flex align-items-center">
-                                            <div class="invoice-user-img me-3"><img src="images/avatar/1.jpg" alt=""
+                                            <div class="invoice-user-img me-3"><img src="{{asset('assets/images/avatar/1.jpg') }}" alt=""
                                                                                     width="50"></div>
                                             <div class="invoice-info">
                                                 <h5 class="mb-0">Terry P. Camacho</h5>
@@ -398,7 +399,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <div class="invoice-user-img me-3"><img src="images/avatar/2.jpg" alt=""
+                                            <div class="invoice-user-img me-3"><img src="{{asset('assets/images/avatar/2.jpg') }}" alt=""
                                                                                     width="50"></div>
                                             <div class="invoice-info">
                                                 <h5 class="mb-0">John L. Foster</h5>
@@ -412,7 +413,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <div class="invoice-user-img me-3"><img src="images/avatar/3.jpg" alt=""
+                                            <div class="invoice-user-img me-3"><img src="{{asset('assets/images/avatar/3.jpg') }}" alt=""
                                                                                     width="50"></div>
                                             <div class="invoice-info">
                                                 <h5 class="mb-0">John C. Adams</h5>
@@ -426,7 +427,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <div class="invoice-user-img me-3"><img src="images/avatar/4.jpg" alt=""
+                                            <div class="invoice-user-img me-3"><img src="{{asset('assets/images/avatar/4.jpg') }}" alt=""
                                                                                     width="50"></div>
                                             <div class="invoice-info">
                                                 <h5 class="mb-0">Weston P. Thomas</h5>
@@ -453,7 +454,7 @@
                                 <ul>
                                     <li class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-2">
-                                            <div class="budget-icon me-3 mt-1"><img src="images/social/facebook.png"
+                                            <div class="budget-icon me-3 mt-1"><img src="{{asset('assets/images/social/facebook.png') }}"
                                                                                     alt="" width="40"></div>
                                             <div class="budget-info flex-grow-2 me-3">
                                                 <div class="d-flex justify-content-between mb-1">
@@ -469,7 +470,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-2">
-                                            <div class="budget-icon me-3 mt-1"><img src="images/social/youtube.png"
+                                            <div class="budget-icon me-3 mt-1"><img src="{{asset('assets/images/social/youtube.png') }}"
                                                                                     alt="" width="40"></div>
                                             <div class="budget-info flex-grow-2 me-3">
                                                 <div class="d-flex justify-content-between mb-1">
@@ -485,7 +486,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-2">
-                                            <div class="budget-icon me-3 mt-1"><img src="images/social/spotify.png"
+                                            <div class="budget-icon me-3 mt-1"><img src="{{asset('assets/images/social/spotify.png') }}"
                                                                                     alt="" width="40"></div>
                                             <div class="budget-info flex-grow-2 me-3">
                                                 <div class="d-flex justify-content-between mb-1">
@@ -501,7 +502,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-2">
-                                            <div class="budget-icon me-3 mt-1"><img src="images/social/skype.png"
+                                            <div class="budget-icon me-3 mt-1"><img src="{{asset('assets/images/social/skype.png') }}"
                                                                                     alt="" width="40"></div>
                                             <div class="budget-info flex-grow-2 me-3">
                                                 <div class="d-flex justify-content-between mb-1">
@@ -517,7 +518,7 @@
                                     </li>
                                     <li class="d-flex justify-content-between align-items-center">
                                         <div class="d-flex flex-grow-2">
-                                            <div class="budget-icon me-3 mt-1"><img src="images/social/envato.png"
+                                            <div class="budget-icon me-3 mt-1"><img src="{{asset('assets/images/social/envato.png') }}"
                                                                                     alt="" width="40"></div>
                                             <div class="budget-info flex-grow-2 me-3">
                                                 <div class="d-flex justify-content-between mb-1">
@@ -547,41 +548,41 @@
 
 
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 
-<script src="vendor/chartjs/chartjs.js"></script>
-
-
-
-<script src="js/plugins/chartjs-line-init.js"></script>
+<script src="{{asset('assets/vendor/chartjs/chartjs.js') }}"></script>
 
 
 
-
-<script src="js/plugins/chartjs-donut.js"></script>
+<script src="{{asset('assets/js/plugins/chartjs-line-init.js') }}"></script>
 
 
 
 
-
-
-<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="js/plugins/perfect-scrollbar-init.js"></script>
-
-
-
-<script src="vendor/circle-progress/circle-progress.min.js"></script>
-<script src="js/plugins/circle-progress-init.js"></script>
+<script src="{{asset('assets/js/plugins/chartjs-donut.js') }}"></script>
 
 
 
 
 
 
+<script src="{{asset('assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+<script src="{{asset('assets/js/plugins/perfect-scrollbar-init.js') }}"></script>
 
-<script src="js/scripts.js"></script>
+
+
+<script src="{{asset('assets/vendor/circle-progress/circle-progress.min.js') }}"></script>
+<script src="{{asset('assets/js/plugins/circle-progress-init.js') }}"></script>
+
+
+
+
+
+
+
+<script src="{{asset('assets/js/scripts.js') }}"></script>
 
 
 </body>

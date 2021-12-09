@@ -8,6 +8,13 @@ use Livewire\Component;
 
 class RegisterStepTwoComponent extends Component
 {
+    public function mount()
+    {
+        if(Auth::user()->status>0)
+        {
+            return redirect()->route('dashboard');
+        }
+    }
     public function verifyuser()
     {
         dd(Auth::user()->name);
@@ -19,10 +26,6 @@ class RegisterStepTwoComponent extends Component
 }
     public function render()
     {
-        if(Auth::user()->status>0)
-        {
-            return redirect()->route('dashboard');
-        }
         return view('livewire.register-step-two-component')->layout('layouts.guest');
     }
 }

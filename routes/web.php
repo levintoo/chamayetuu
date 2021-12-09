@@ -23,10 +23,10 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::middleware(['registration_completed'])->group(function () {
-//Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
-        Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
             return view('dashboard');
-        })->name('dashboard');
+        })->name('dashboard2');
     });
     Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
 });

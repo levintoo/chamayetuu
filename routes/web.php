@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\LoanComponent;
+use App\Http\Livewire\NotificationComponent;
 use App\Http\Livewire\RegisterStepTwoComponent;
 use App\Http\Livewire\TransactionsComponent;
 use App\Http\Livewire\UserSettingsComponent;
@@ -33,6 +34,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/transactions',TransactionsComponent::class)->name('transactions');
     Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
     Route::get('/loans',LoanComponent::class)->name('loans');
+    Route::get('/notification',NotificationComponent::class)->name('notification');
 
         Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
                 return view('dashboard');

@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="notification.html">More<i class="ri-arrow-right-s-line"></i></a>
+                                        <a href="{{route('notification')}}">More<i class="ri-arrow-right-s-line"></i></a>
                                     </div>
                                 </div>
                             </div>

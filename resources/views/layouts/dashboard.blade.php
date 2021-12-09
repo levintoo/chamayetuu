@@ -137,7 +137,7 @@
                         <span class="nav-text">Invoice</span>
                     </a>
                 </li>
-                <li><a href="settings-profile.html">
+                <li><a href="{{route('user-settings')}}">
                         <span><i class="ri-settings-3-line"></i></span>
                         <span class="nav-text">Settings</span>
                     </a>

@@ -127,7 +127,7 @@
                         <span class="nav-text">Wallet</span>
                     </a>
                 </li>
-                <li><a href="bill.html">
+                <li><a href="{{route('loans')}}">
                         <span><i class="ri-secure-payment-line"></i></span>
                         <span class="nav-text">Payment</span>
                     </a>

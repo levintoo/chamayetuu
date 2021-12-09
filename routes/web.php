@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\RegisterStepTwoComponent;
+use App\Http\Livewire\WalletComponent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +24,14 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::middleware(['registration_completed'])->group(function () {
-Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+
+    Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+    Route::get('/wallet',WalletComponent::class)->name('wallet');
+
         Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
-            return view('dashboard');
-        })->name('dashboard2');
-    });
+                return view('dashboard');
+            })->name('dashboard2');
+        });
     Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
 });
 

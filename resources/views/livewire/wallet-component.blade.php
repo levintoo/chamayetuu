@@ -29,7 +29,7 @@
                         <div class="col-12">
                             <div class="total-balance">
                                 <p>Total Balance</p>
-                                <h2>$221,478</h2>
+                                <h2>${{$balance}}</h2>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
@@ -63,7 +63,7 @@
         <div class="col-xxl-6 col-xl-6 col-lg-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Bills</h4>
+                    <h4 class="card-title">Loans</h4>
                     <a href="#">See More</a>
                 </div>
                 <div class="card-body">
@@ -114,19 +114,30 @@
         <div class=" col-xxl-6 col-xl-6 col-lg-6">
             <div class="row">
                 <div class="col-xxl-12 col-xl-12 col-lg-12">
-                    <div class="credit-card visa">
+                    <div class="credit-card payoneer">  {{--visa is an alt--}}
                         <div class="type-brand">
-                            <h4>Debit Card</h4>
-                            <img src="images/cc/visa.png" alt="">
+                            <h4>M-pesa</h4>
+                            <img src="{{asset('assets/images/cc/visa.png') }}" alt="">
                         </div>
                         <div class="cc-number">
-                            <h6>1234</h6>
-                            <h6>5678</h6>
-                            <h6>7890</h6>
-                            <h6>9875</h6>
+
+                         {{--   mpesa payment form  --}}
+                            <form class="input-group">
+                                @csrf
+                                <input type="number" class="form-control" placeholder="Enter amount to deposit" wire:model="mpesaamount">
+                                @error('mpesaamount')<h6>{{$message}}</h6>@enderror
+
+                                <a class="input-group-text" type="submit" wire:click="store()">
+                                    Deposit
+                                </a>
+
+                            </form>
+
                         </div>
                         <div class="cc-holder-exp">
-                            <h5>Saiful Islam</h5>
+                            @if(Session::has('mpesamessage'))
+                                <h5 class="text-success">{{Session::get('mpesamessage')}}</h5>
+                            @endif
                             <div class="exp"><span>EXP:</span><strong>12/21</strong></div>
                         </div>
                         <div class="cc-info">
@@ -154,18 +165,23 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xxl-12 col-xl-12 col-lg-12">
                     <div class="credit-card payoneer">
                         <div class="type-brand">
-                            <h4>Debit Card</h4>
-                            <img src="images/cc/payoneer.png" alt="">
+                            <h4>Deposit</h4>
+                            <img src="{{asset('assets/images/cc/payoneer.png') }}" alt="">
                         </div>
                         <div class="cc-number">
-                            <h6>1234</h6>
-                            <h6>5678</h6>
-                            <h6>7890</h6>
-                            <h6>9875</h6>
+                            <form class="input-group">
+                                <input type="text" class="form-control" placeholder="Enter amount to deposit">
+                                <a class="input-group-text" type="submit">
+                                    Deposit
+                                </a>
+                                <h6></h6>
+                            </form>
                         </div>
+
                         <div class="cc-holder-exp">
                             <h5>Saiful Islam</h5>
                             <div class="exp"><span>EXP:</span><strong>12/21</strong></div>

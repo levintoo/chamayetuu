@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png') }}">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css') }}">
+    @livewireStyles
 </head>
 
 <body class="dashboard">
@@ -197,7 +198,7 @@
 
 
 <script src="{{asset('assets/js/scripts.js') }}"></script>
-
+@livewireScripts
 
 </body>
 </html>

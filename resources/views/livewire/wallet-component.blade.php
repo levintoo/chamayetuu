@@ -1,4 +1,8 @@
-
+@push('styles')
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+</script>
+@endpush
 <div class="container">
     <div class="page-title">
         <div class="row align-items-center justify-content-between">
@@ -29,7 +33,7 @@
                         <div class="col-12">
                             <div class="total-balance">
                                 <p>Total Balance</p>
-                                <h2>${{$balance}}</h2>
+                                <h2>KES {{$balance}}</h2>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
@@ -107,7 +111,7 @@
                             <div class=""></div>
                         </div>
                     </div>
-                    <canvas id="transaction-graph" ></canvas>
+                    <canvas id="transaction-graph"></canvas>
                 </div>
             </div>
         </div>
@@ -121,12 +125,11 @@
                         </div>
                         <div class="cc-number">
 
-                         {{--   mpesa payment form  --}}
+                            {{--   mpesa payment form  --}}
                             <form class="input-group">
                                 @csrf
-                                <input type="number" class="form-control" placeholder="Enter amount to deposit" wire:model="mpesaamount">
-                                @error('mpesaamount')<h6>{{$message}}</h6>@enderror
-
+                                <input type="number" class="form-control" placeholder="Enter amount to deposit"
+                                       wire:model="mpesaamount">
                                 <a class="input-group-text" type="submit" wire:click="store()">
                                     Deposit
                                 </a>
@@ -135,6 +138,8 @@
 
                         </div>
                         <div class="cc-holder-exp">
+                            @error('mpesaamount')<p class="text-danger">{{$message}}</p>@enderror
+
                             @if(Session::has('mpesamessage'))
                                 <h5 class="text-success">{{Session::get('mpesamessage')}}</h5>
                             @endif
@@ -173,17 +178,21 @@
                             <img src="{{asset('assets/images/cc/payoneer.png') }}" alt="">
                         </div>
                         <div class="cc-number">
-                            <form class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter amount to deposit">
-                                <a class="input-group-text" type="submit">
-                                    Deposit
-                                </a>
+                            <form class="input-group" >
+                                @csrf
+                                <input type="text" class="form-control" placeholder="Enter amount to deposit" wire:model="paypalamount">
+
                                 <h6></h6>
+                                <div id="paypal-button-container"></div>
                             </form>
                         </div>
 
                         <div class="cc-holder-exp">
-                            <h5>Saiful Islam</h5>
+                            @error('paypalamount')<p class="text-danger">{{$message}}</p>@enderror
+
+                            @if(Session::has('paypalmessage'))
+                                <h5 class="text-success">{{Session::get('paypalmessage')}}</h5>
+                            @endif
                             <div class="exp"><span>EXP:</span><strong>12/21</strong></div>
                         </div>
                         <div class="cc-info">
@@ -215,3 +224,27 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script>
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '0.01'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function(details) {
+                    // This function shows a transaction success message to your buyer.
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                });
+            }
+        }).render('#paypal-button-container');
+        //This function displays Smart Payment Buttons on your web page.
+    </script>
+@endpush

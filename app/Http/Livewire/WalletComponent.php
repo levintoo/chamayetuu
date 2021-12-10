@@ -9,14 +9,34 @@ use Livewire\Component;
 class WalletComponent extends Component
 {
     public $mpesaamount;
+    public $paypalamount;
 
     public function mount()
     {
         //
     }
 
+    public function resetmpesaInput()
+    {
+        $this->mpesaamount = '';
+    }
+
+    public function updated($fields)
+    {
+        $this->validateOnly($fields, [
+            'mpesaamount' => 'required|gt:10',
+        ]);
+    }
+
+
     public function store()
     {
+        $this->validate([
+            'mpesaamount' => 'required|gt:10',
+        ]);
+
+//  initiate mpesa transaction
+
         $newsaving = new Savings();
         $newsaving->balance = $this->mpesaamount;
         $newsaving->user_id = Auth::user()->user_id;
@@ -25,10 +45,12 @@ class WalletComponent extends Component
         $this->resetmpesaInput();
     }
 
-    public function resetmpesaInput()
+
+    public function initiatepaypal()
     {
-        $this->mpesaamount = '';
+        session()->flash('paypalmessage', "Saved succesfully");
     }
+
 
     public function render()
     {

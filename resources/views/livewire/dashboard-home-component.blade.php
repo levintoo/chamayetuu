@@ -170,7 +170,7 @@
                         <div class="col-12">
                             <div class="total-balance">
                                 <p>Total Balance</p>
-                                <h2>$221,478</h2>
+                                <h2>KES {{$balance}}</h2>
                             </div>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">

@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png') }}">
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css') }}">
+    @stack('styles')
     @livewireStyles
 </head>
 
@@ -161,8 +162,7 @@
 </div>
 
 
-
-
+@stack('scripts')
 <script src="{{asset('assets/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 

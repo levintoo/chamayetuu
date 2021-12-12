@@ -25,19 +25,12 @@ class WalletComponent extends Component
         $this->paypalamount = '100';
     }
 
-    public function resetmpesaInput()
-    {
-        $this->mpesaamount = '';
-    }
-
     public function updated($fields)
     {
         $this->validateOnly($fields, [
             'mpesaamount' => 'required|gt:99',
         ]);
     }
-
-
 
     public function store()
     {
@@ -55,6 +48,11 @@ class WalletComponent extends Component
         $this->resetmpesaInput();
     }
 
+    public function resetmpesaInput()
+    {
+        $this->mpesaamount = '';
+    }
+
     // paypal functions
 
     public function initiatepaypal()
@@ -62,7 +60,7 @@ class WalletComponent extends Component
         session()->flash('paypalmessage', "Saved succesfully");
     }
 
-        public function create()
+    public function create()
     {
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
@@ -116,7 +114,7 @@ class WalletComponent extends Component
         return redirect($payment->getApprovalLink());
     }
 
-        public function execute()
+    public function execute()
     {
         $apiContext = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential(
@@ -147,7 +145,7 @@ class WalletComponent extends Component
         $execution->addTransaction($transaction);
         $result = $payment->execute($execution, $apiContext);
 
-         dd($result);
+        dd($result);
     }
 
     //render with savings info

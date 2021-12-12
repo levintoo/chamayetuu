@@ -75,29 +75,24 @@ class WalletComponent extends Component
         $payer->setPaymentMethod('paypal');
 
         $item1 = new Item();
-        $item1->setName('Ground Coffee 40 oz')
+        $item1->setName('Pay to account ')
             ->setCurrency('USD')
             ->setQuantity(1)
-            ->setSku('123123') // Similar to `item_number` in Classic API
-            ->setPrice(7.5);
-        $item2 = new Item();
-        $item2->setName('Granola bars')
-            ->setCurrency('USD')
-            ->setQuantity(5)
-            ->setSku('321321') // Similar to `item_number` in Classic API
-            ->setPrice(2);
+            ->setSku(Auth::user()->user_id) // Similar to `item_number` in Classic API
+            ->setPrice(1);
+
 
         $itemList = new ItemList();
-        $itemList->setItems([$item1, $item2]);
+        $itemList->setItems([$item1]);
 
         $details = new Details();
-        $details->setShipping(1.2)
-            ->setTax(1.3)
-            ->setSubtotal(17.50);
+        $details->setShipping(0)
+            ->setTax(0)
+            ->setSubtotal(1);
 
         $amount = new Amount();
         $amount->setCurrency('USD')
-            ->setTotal(20)
+            ->setTotal(1)
             ->setDetails($details);
 
         $transaction = new Transaction();
@@ -116,7 +111,7 @@ class WalletComponent extends Component
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
 
-        $payment->create($apiContext);
+        dd($payment->create($apiContext));
 
         return redirect($payment->getApprovalLink());
     }
@@ -140,12 +135,12 @@ class WalletComponent extends Component
         $amount = new Amount();
         $details = new Details();
 
-        $details->setShipping(1.2)
-            ->setTax(1.3)
-            ->setSubtotal(17.50);
+        $details->setShipping(0)
+            ->setTax(0)
+            ->setSubtotal(1);
 
         $amount->setCurrency('USD');
-        $amount->setTotal(20);
+        $amount->setTotal(1);
         $amount->setDetails($details);
         $transaction->setAmount($amount);
 

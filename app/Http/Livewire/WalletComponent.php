@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Savings;
+use App\Models\TransactionsModel;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use PayPal\Api\Amount;
@@ -14,6 +15,8 @@ use PayPal\Api\Payment;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Rest\ApiContext;
 
 class WalletComponent extends Component
 {
@@ -53,17 +56,10 @@ class WalletComponent extends Component
         $this->mpesaamount = '';
     }
 
-    // paypal functions
-
-    public function initiatepaypal()
-    {
-        session()->flash('paypalmessage', "Saved succesfully");
-    }
-
     public function create()
     {
-        $apiContext = new \PayPal\Rest\ApiContext(
-            new \PayPal\Auth\OAuthTokenCredential(
+        $apiContext = new ApiContext(
+            new OAuthTokenCredential(
                 'AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA', // client id
                 'EPPlZD25F_6nHtxSjPHp7BFwX0ohZxSSfPNdeItGhby909PDx2bYHWFGjpbZ2R6sVAj6sSyXshNDj-CU' // client secret
             )
@@ -109,15 +105,33 @@ class WalletComponent extends Component
             ->setRedirectUrls($redirectUrls)
             ->setTransactions([$transaction]);
 
-        dd($payment->create($apiContext));
+        $retu = $payment->create($apiContext);
+
+        //conversions
+        $pusd_amount = $retu->transactions[0]->amount->total;
+        $p_amount = $pusd_amount * 100;
+        $date = date('Y-m-d H:i:s', strtotime($retu->create_time));
+        //end of conversions
+
+        $transaction = new TransactionsModel();
+        $transaction->user_id = Auth::user()->user_id;
+        $transaction->type = 'credit';
+        $transaction->amount = $p_amount;
+        $transaction->purpose = 'saving';
+        $transaction->source = 'paypal';
+        $transaction->transaction_id = $retu->id;
+        $transaction->initiated_at = $date;
+        $transaction->transacted_at = $date;
+        $transaction->status = '0';
+        $transaction->save();
 
         return redirect($payment->getApprovalLink());
     }
 
     public function execute()
     {
-        $apiContext = new \PayPal\Rest\ApiContext(
-            new \PayPal\Auth\OAuthTokenCredential(
+        $apiContext = new ApiContext(
+            new OAuthTokenCredential(
                 'AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA', // client id
                 'EPPlZD25F_6nHtxSjPHp7BFwX0ohZxSSfPNdeItGhby909PDx2bYHWFGjpbZ2R6sVAj6sSyXshNDj-CU' // client secret
             )
@@ -146,6 +160,12 @@ class WalletComponent extends Component
         $result = $payment->execute($execution, $apiContext);
 
         dd($result);
+        //save to transaction table
+        //save to saving table
+    }
+    public function initiatepaypal()
+    {
+        session()->flash('paypalmessage', "Saved succesfully");
     }
 
     //render with savings info

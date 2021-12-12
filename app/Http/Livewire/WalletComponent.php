@@ -43,7 +43,7 @@ class WalletComponent extends Component
             'mpesaamount' => 'required|gt:99',
         ]);
 
-//  initiate mpesa transaction
+        // initiate mpesa transaction
 
         $newsaving = new Savings();
         $newsaving->balance = $this->mpesaamount;
@@ -189,12 +189,17 @@ class WalletComponent extends Component
         $complete_transaction->touch();
         $complete_transaction->save();
         // call function to update balance
+        $this->initiatepaypal($result);
         return redirect(route('wallet'));
     }
 
-    public function initiatepaypal()
+    public function initiatepaypal($result)
     {
-        session()->flash('paypalmessage', "Saved succesfully");
+        $saving = Savings::where('user_id', Auth::user()->user_id)->first();
+        $oldbalance = $saving->balance;
+        $saving->balance = $oldbalance+ 100;
+        $saving->save();
+        session()->flash('paypalmessage', "ona huyuu");
     }
 
     //render with savings info

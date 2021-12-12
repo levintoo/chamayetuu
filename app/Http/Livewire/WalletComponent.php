@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Savings;
 use App\Models\TransactionsModel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use PayPal\Api\Amount;
@@ -25,13 +26,14 @@ class WalletComponent extends Component
 
     public function mount()
     {
-        $this->paypalamount = '100';
+        //
     }
 
     public function updated($fields)
     {
         $this->validateOnly($fields, [
             'mpesaamount' => 'required|gt:99',
+            'paypalamount' => 'required|gt:99',
         ]);
     }
 
@@ -56,8 +58,19 @@ class WalletComponent extends Component
         $this->mpesaamount = '';
     }
 
-    public function create()
+    public function resetpaypalInput()
     {
+        $this->paypalamount = '';
+    }
+
+    public function create(Request $request)
+    {
+        $request->validate([
+            'paypalamount' => 'required|gt:99',
+        ]);
+
+        $pamount = $request->paypalamount / 100;
+
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA', // client id
@@ -73,7 +86,7 @@ class WalletComponent extends Component
             ->setCurrency('USD')
             ->setQuantity(1)
             ->setSku(Auth::user()->user_id) // Similar to `item_number` in Classic API
-            ->setPrice(1);
+            ->setPrice($pamount);
 
 
         $itemList = new ItemList();
@@ -82,11 +95,11 @@ class WalletComponent extends Component
         $details = new Details();
         $details->setShipping(0)
             ->setTax(0)
-            ->setSubtotal(1);
+            ->setSubtotal($pamount);
 
         $amount = new Amount();
         $amount->setCurrency('USD')
-            ->setTotal(1)
+            ->setTotal($pamount)
             ->setDetails($details);
 
         $transaction = new Transaction();
@@ -123,6 +136,7 @@ class WalletComponent extends Component
         $transaction->initiated_at = $date;
         $transaction->transacted_at = $date;
         $transaction->status = '0';
+        $transaction->touch();
         $transaction->save();
 
         return redirect($payment->getApprovalLink());
@@ -130,6 +144,7 @@ class WalletComponent extends Component
 
     public function execute()
     {
+
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
                 'AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA', // client id
@@ -159,10 +174,24 @@ class WalletComponent extends Component
         $execution->addTransaction($transaction);
         $result = $payment->execute($execution, $apiContext);
 
-        dd($result);
-        //save to transaction table
-        //save to saving table
+        $complete_transaction = TransactionsModel::where('transaction_id', $result->id)->first();
+        $complete_transaction->transacted_at = date('Y-m-d H:i:s', strtotime($result->update_time));
+        session()->flash('paypalmessage', "payment processed succesfully");
+
+        if ($result->transactions[0]->related_resources[0]->sale->state === 'completed') {
+            $complete_transaction->status = '1';
+        } else if ($result->state === 'approved') {
+            $complete_transaction->status = '1';
+        } else if (!$result->failed_transactions = 'null') {
+            $complete_transaction->status = '2';
+            session()->flash('paypalmessage', "transaction failed");
+        }
+        $complete_transaction->touch();
+        $complete_transaction->save();
+        // call function to update balance
+        return redirect(route('wallet'));
     }
+
     public function initiatepaypal()
     {
         session()->flash('paypalmessage', "Saved succesfully");

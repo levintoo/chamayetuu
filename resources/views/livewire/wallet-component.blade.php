@@ -180,10 +180,9 @@
                         <div class="cc-number">
                             <form class="input-group" action="{{ route('create-payment') }}" method="post">
                                 @csrf
-                                <input type="text" id="paypal-amount" class="form-control" placeholder="Enter amount to deposit" wire:model="paypalamount">
-                                <input value="Deposit" class="input-group-text" type="submit">
+                                <input name="paypalamount" type="number" id="paypal-amount" class="form-control" placeholder="Enter amount to deposit" wire:model="paypalamount">
+                                <input value="Deposit" class="input-group-text" type="submit" >
 {{--                                <h6></h6>--}}
-{{--                                <div id="paypal-button-container"></div>--}}
                             </form>
                         </div>
 

@@ -178,12 +178,12 @@
                             <img src="{{asset('assets/images/cc/payoneer.png') }}" alt="">
                         </div>
                         <div class="cc-number">
-                            <form class="input-group" >
+                            <form class="input-group" action="{{ route('create-payment') }}" method="post">
                                 @csrf
-                                <input type="text" class="form-control" placeholder="Enter amount to deposit" wire:model="paypalamount">
-
-                                <h6></h6>
-                                <div id="paypal-button-container"></div>
+                                <input type="text" id="paypal-amount" class="form-control" placeholder="Enter amount to deposit" wire:model="paypalamount">
+                                <input value="Deposit" class="input-group-text" type="submit">
+{{--                                <h6></h6>--}}
+{{--                                <div id="paypal-button-container"></div>--}}
                             </form>
                         </div>
 
@@ -226,13 +226,17 @@
 </div>
 @push('scripts')
     <script>
+        $('#paypal-amount').on('change', function() {
+            var amount = this.value;
+            console.log(amount)
+        });
         paypal.Buttons({
             createOrder: function(data, actions) {
                 // This function sets up the details of the transaction, including the amount and line item details.
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '0.01'
+                            value:'0.1'
                         }
                     }]
                 });
@@ -242,6 +246,8 @@
                 return actions.order.capture().then(function(details) {
                     // This function shows a transaction success message to your buyer.
                     alert('Transaction completed by ' + details.payer.name.given_name);
+                    console.log('Transaction completed by ' + details);
+                    console.log('Transaction completed by ' + details.payer.name.given_name);
                 });
             }
         }).render('#paypal-button-container');

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
 class TransactionsComponent extends Component
 {
     public function mount()
@@ -16,7 +17,22 @@ class TransactionsComponent extends Component
     }
     public function render()
     {
-        $transactions = TransactionsModel::where('user_id',Auth::user()->user_id)->orderBy('transacted_at','DESC')->paginate($this->pagesize);
-        return view('livewire.transactions-component',['transactons'=>$transactions])->layout('layouts.dashboard');
+        if($this->sorting=='date')
+        {
+            $transactions = TransactionsModel::where('user_id',Auth::user()->user_id)->orderBy('transacted_at','ASC')->paginate($this->pagesize);
+        }
+        elseif ($this->sorting=='amount')
+        {
+            $transactions = TransactionsModel::where('user_id',Auth::user()->user_id)->orderBy('amount','DESC')->paginate($this->pagesize);
+        }
+        elseif ($this->sorting=='status')
+        {
+            $transactions = TransactionsModel::where('user_id',Auth::user()->user_id)->orderBy('status','DESC')->paginate($this->pagesize);
+        }
+        else{
+            $transactions = TransactionsModel::where('user_id',Auth::user()->user_id)->orderBy('transacted_at','DESC')->paginate($this->pagesize);
+        }
+
+        return view('livewire.transactions-component',['transactions'=>$transactions])->layout('layouts.dashboard');
     }
 }

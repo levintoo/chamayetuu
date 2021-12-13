@@ -9,6 +9,7 @@
             color: #070707;
         }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 @endpush
 <div class="container">
     <div class="page-title">

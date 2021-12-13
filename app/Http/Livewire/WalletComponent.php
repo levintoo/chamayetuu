@@ -180,8 +180,10 @@ class WalletComponent extends Component
 
         if ($result->transactions[0]->related_resources[0]->sale->state === 'completed') {
             $complete_transaction->status = '1';
+            $this->initiatepaypal($result);
         } else if ($result->state === 'approved') {
             $complete_transaction->status = '1';
+            $this->initiatepaypal($result);
         } else if (!$result->failed_transactions = 'null') {
             $complete_transaction->status = '2';
             session()->flash('paypalmessage', "transaction failed");
@@ -189,7 +191,6 @@ class WalletComponent extends Component
         $complete_transaction->touch();
         $complete_transaction->save();
         // call function to update balance
-        $this->initiatepaypal($result);
         return redirect(route('wallet'));
     }
 

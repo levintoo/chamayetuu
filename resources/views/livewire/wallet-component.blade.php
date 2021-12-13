@@ -1,6 +1,6 @@
 @push('styles')
-<script
-    src="https://www.paypal.com/sdk/js?client-id=AY9Yzxqy9fUL9Tq0WiDR5iQlLzW-EqNRoKTYvxHX18RuboMi_81kMm7hGSRJqQj3qyaHpdv8KvQX0gyA"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+<script>
+
 </script>
 @endpush
 <div class="container">
@@ -175,7 +175,7 @@
                     <div class="credit-card payoneer">
                         <div class="type-brand">
                             <h4>Deposit</h4>
-                            <img src="{{asset('assets/images/cc/payoneer.png') }}" alt="">
+                            <img src="{{asset('assets/images/cc/paypal.png') }}" alt="">
                         </div>
                         <div class="cc-number">
                             <form class="input-group" action="{{ route('create-payment') }}" method="post">
@@ -225,31 +225,6 @@
 </div>
 @push('scripts')
     <script>
-        $('#paypal-amount').on('change', function() {
-            var amount = this.value;
-            console.log(amount)
-        });
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                // This function sets up the details of the transaction, including the amount and line item details.
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value:'0.1'
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                // This function captures the funds from the transaction.
-                return actions.order.capture().then(function(details) {
-                    // This function shows a transaction success message to your buyer.
-                    alert('Transaction completed by ' + details.payer.name.given_name);
-                    console.log('Transaction completed by ' + details);
-                    console.log('Transaction completed by ' + details.payer.name.given_name);
-                });
-            }
-        }).render('#paypal-button-container');
-        //This function displays Smart Payment Buttons on your web page.
+        console.log('wallet ,deposit page')
     </script>
 @endpush

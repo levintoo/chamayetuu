@@ -3,13 +3,13 @@
         <div class="row align-items-center justify-content-between">
             <div class="col-xl-4">
                 <div class="page-title-content">
-                    <h3>Invoice</h3>
+                    <h3>Transactions</h3>
                     <p class="mb-2">Welcome Intez Invoice page</p>
                 </div>
             </div>
             <div class="col-auto">
                 <div class="breadcrumbs"><a href="#">Home </a><span><i
-                            class="ri-arrow-right-s-line"></i></span><a href="#">Invoice</a></div>
+                            class="ri-arrow-right-s-line"></i></span><a href="#">Transactions</a></div>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
                 <div class="widget-icon me-3 bg-primary"><span><i class="ri-file-copy-2-line"></i></span></div>
                 <div class="widget-content">
                     <h3>483</h3>
-                    <p>Total Invoices</p>
+                    <p>Total Transactions</p>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <div class="widget-icon me-3 bg-danger"><span><i class="ri-file-paper-2-line"></i></span></div>
                 <div class="widget-content">
                     <h3>89</h3>
-                    <p>Canceled Invoices</p>
+                    <p>Canceled Transactions</p>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                 <div class="card-header flex-row">
                     <h4 class="card-title">Invoice </h4>
                     <a class="btn btn-primary" href="create-invoice.html"><span><i
-                                class="bi bi-plus"></i></span>Create Invoice</a>
+                                class="bi bi-plus"></i></span>Create </a>
                 </div>
                 <div class="card-body">
                     <div class="invoice-table">
@@ -67,68 +67,41 @@
                                         <div class="form-check"><input class="form-check-input"
                                                                        type="checkbox" id="flexCheckDefault" value=""></div>
                                     </th>
-                                    <th>Client</th>
+                                    <th>Type</th>
                                     <th>Amount</th>
+                                    <th>Source</th>
+                                    <th>Purpose</th>
                                     <th>Status</th>
-                                    <th>Due</th>
+                                    <th>Received</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check"><input class="form-check-input"
-                                                                       type="checkbox" id="flexCheckDefault" value=""></div>
-                                    </td>
-                                    <td><img src="images/avatar/1.jpg" alt="" width="30"
-                                             class="me-2">Weston P. Thomas</td>
-                                    <td>$254</td>
-                                    <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
-                                    <td>February 16, 2021</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check"><input class="form-check-input"
-                                                                       type="checkbox" id="flexCheckDefault" value=""></div>
-                                    </td>
-                                    <td><img src="images/avatar/2.jpg" alt="" width="30"
-                                             class="me-2">William D. Gibson</td>
-                                    <td>$254</td>
-                                    <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
-                                    <td>December 21, 2021</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check"><input class="form-check-input"
-                                                                       type="checkbox" id="flexCheckDefault" value=""></div>
-                                    </td>
-                                    <td><img src="images/avatar/3.jpg" alt="" width="30" class="me-2">John
-                                        C. Adams</td>
-                                    <td>$254</td>
-                                    <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
-                                    <td>March 21, 2021</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check"><input class="form-check-input"
-                                                                       type="checkbox" id="flexCheckDefault" value=""></div>
-                                    </td>
-                                    <td><img src="images/avatar/4.jpg" alt="" width="30" class="me-2">John
-                                        L. Foster</td>
-                                    <td>$254</td>
-                                    <td><span class="badge px-3 py-2 bg-warning">Due</span></td>
-                                    <td>April 29, 2021</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check"><input class="form-check-input"
-                                                                       type="checkbox" id="flexCheckDefault" value=""></div>
-                                    </td>
-                                    <td><img src="images/avatar/5.jpg" alt="" width="30" class="me-2">Terry
-                                        P. Camacho</td>
-                                    <td>$254</td>
-                                    <td><span class="badge px-3 py-2 bg-danger">Cancel</span></td>
-                                    <td>November 26, 2021</td>
-                                </tr>
+                                @foreach($transactons as $transacton)
+                                    <tr>
+                                        <td>
+                                            <div class="form-check"><input class="form-check-input"
+                                                                           type="checkbox" id="flexCheckDefault" value=""></div>
+                                        </td>
+                                        <td>{{$transacton->type}}</td>
+                                        <td>{{$transacton->amount}}</td>
+                                        <td>{{$transacton->source}}</td>
+                                        <td>{{$transacton->purpose}}</td>
+                                        @if($transacton->status == '0')
+                                            <td><span class="badge px-3 py-2 bg-warning">Pending</span></td>
+                                        @elseif($transacton->status == '1')
+                                            <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
+                                        @elseif($transacton->status == '2')
+                                            <td><span class="badge px-3 py-2 bg-danger">failed</span></td>
+                                        @elseif($transacton->status == '3')
+                                            <td><span class="badge px-3 py-2 bg-danger">cancelled</span></td>
+                                        @elseif($transacton->status == '4')
+                                            <td><span class="badge px-3 py-2 bg-danger">reversed</span></td>
+                                        @elseif($transacton->status == '5')
+                                            <td><span class="badge px-3 py-2 bg-danger">rejected</span></td>
+                                        @endif
+                                        <td>{{$transacton->transacted_at}}</td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

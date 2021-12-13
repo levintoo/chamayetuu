@@ -32,15 +32,15 @@ class WalletComponent extends Component
     public function updated($fields)
     {
         $this->validateOnly($fields, [
-            'mpesaamount' => 'required|gt:99',
-            'paypalamount' => 'required|gt:99',
+            'mpesaamount' => 'required|numeric|gt:99',
+            'paypalamount' => 'required|numeric|gt:99',
         ]);
     }
 
     public function store()
     {
         $this->validate([
-            'mpesaamount' => 'required|gt:99',
+            'mpesaamount' => 'required|numeric|gt:99',
         ]);
 
         // initiate mpesa transaction
@@ -66,7 +66,7 @@ class WalletComponent extends Component
     public function create(Request $request)
     {
         $request->validate([
-            'paypalamount' => 'required|gt:99',
+            'paypalamount' => 'required|numeric|gt:99',
         ]);
 
         $pamount = $request->paypalamount / 100;
@@ -198,7 +198,7 @@ class WalletComponent extends Component
     {
         $saving = Savings::where('user_id', Auth::user()->user_id)->first();
         $oldbalance = $saving->balance;
-        $saving->balance = $oldbalance+ 100;
+        $saving->balance = $oldbalance + 100;
         $saving->save();
         session()->flash('paypalmessage', "ona huyuu");
     }

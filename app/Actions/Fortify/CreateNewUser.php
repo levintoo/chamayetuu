@@ -36,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
         //generate custom user id
         $uid= Helper::IDGenerator(new User(),'user_id',4,'CH');
 
-        Otp::generate($uid, $digits = 4, $validity = 10);
+        Otp::generate($uid, $digits = 4, $validity = 30);
         //send otp via email
 
         return User::create([

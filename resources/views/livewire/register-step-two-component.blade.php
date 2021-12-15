@@ -5,12 +5,7 @@
         }
     </style>
 @endpush
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo/>
-        </x-slot>
-
+<div>
         <div class="card-body">
             <div class="mb-3">
                 <p>Please input otp sent to {{Auth::user()->email}}.</p>
@@ -25,27 +20,24 @@
                     {{ session('error') }}
                 </div>
             @endif
+                <form  method="POST" action="">
+                    @csrf
 
-            <x-jet-validation-errors class="mb-3"/>
+                    <div class="mb-3">
+                        <label value="Code"/>
+                        <input type="number" name=""  required autofocus wire:model="otp_input"/>
+                    </div>
 
-            <form method="POST" action="">
-                @csrf
+                    <div class="d-flex justify-content-center mt-4">
+                        @error('otp_input')<p class="text-danger">{{$message}}</p>@enderror
+                    </div>
+                    <button type="button" class="btn btn-primary" wire:click="verifyuser">
+                        verify
+                    </button>
+                </form>
 
-                <div class="mb-3">
-                    <x-jet-label value="Code"/>
-                    <x-jet-input type="text" name="otp" :value="old('otp')" required autofocus wire:model="otp"/>
-                </div>
-
-                <div class="d-flex justify-content-end mt-4">
-
-                </div>
-            </form>
-            <button class="btn btn-primary" wire:click="verifyuser">
-                verify
-            </button>
-            <a class="text-muted me-3" wire:click="resendcode">
-                Didn't receive code?
-            </a>
+                <a class="text-muted me-3" wire:click="resendcode">
+                    Didn't receive code?
+                </a>
         </div>
-    </x-jet-authentication-card>
-</x-guest-layout>
+</div>

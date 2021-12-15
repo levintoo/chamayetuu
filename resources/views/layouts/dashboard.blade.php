@@ -94,10 +94,10 @@
                                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu dropdown-menu-right">
                                     <div class="user-email">
                                         <div class="user">
-                                            <span class="thumb"><img src="images/profile/3.png" alt=""></span>
+                                            <span class="thumb"><img src="{{ asset('assets/images/profile/3.png')}}" alt=""></span>
                                             <div class="user-info">
-                                                <h5>Jannatul Maowa</h5>
-                                                <span>Intez.inc@gmail.com</span>
+                                                <h5>{{Auth::user()->name}}</h5>
+                                                <span>{{Auth::user()->email}}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +106,10 @@
                                     <a class="dropdown-item" href="settings-profile.html"><span><i class="ri-settings-3-line"></i></span>Settings</a>
                                     <a class="dropdown-item" href="settings-activity.html"><span><i class="ri-time-line"></i></span>Activity</a>
                                     <a class="dropdown-item" href="lock.html"><span><i class="ri-lock-line"></i></span>Lock</a>
-                                    <a class="dropdown-item logout" href="signin.html"><i class="ri-logout-circle-line"></i>Logout</a>
+                                    <a class="dropdown-item logout" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="ri-logout-circle-line"></i> Logout</a>
+                                    <form method="POST" id="logout-form" action="{{ route('logout') }}">
+                                        @csrf
+                                    </form>
                                 </div>
                             </div>
                         </div>

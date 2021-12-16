@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Savings;
 use App\Models\TransactionsModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -217,6 +218,8 @@ class WalletComponent extends Component
         } else {
             $balance = number_format($saving->balance, 0, '.', ',');
         }
+
+
         return view('livewire.wallet-component', ['saving' => $saving, 'balance' => $balance])->layout('layouts.dashboard');
     }
 }

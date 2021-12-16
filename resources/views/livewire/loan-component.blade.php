@@ -95,7 +95,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/facebook.png" alt="" width="22" class="me-3 img-fluid">Facebook Ads</td>
+                                    <td><img src="{{ asset('assets/images/social/facebook.png') }}" alt="" width="22" class="me-3 img-fluid">Facebook Ads</td>
                                     <td>$412</td>
                                     <td>March 21, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
@@ -104,7 +104,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/youtube.png" alt="" width="22" class="me-3 img-fluid">Youtube Premium</td>
+                                    <td><img src="{{ asset('assets/images/social/youtube.png') }}" alt="" width="22" class="me-3 img-fluid">Youtube Premium</td>
                                     <td>$175</td>
                                     <td>December 26, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-danger">Cancel</span></td>
@@ -113,7 +113,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/dropbox.png" alt="" width="22" class="me-3 img-fluid">Dropbox</td>
+                                    <td><img src="{{ asset('assets/images/social/dropbox.png') }}" alt="" width="22" class="me-3 img-fluid">Dropbox</td>
                                     <td>$521</td>
                                     <td>February 16, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
@@ -122,7 +122,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/google-plus.png" alt="" width="22" class="me-3 img-fluid">Google Plus</td>
+                                    <td><img src="{{ asset('assets/images/social/google-plus.png') }}" alt="" width="22" class="me-3 img-fluid">Google Plus</td>
                                     <td>$125</td>
                                     <td>June 17, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-warning">Due</span></td>
@@ -131,7 +131,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/spotify.png" alt="" width="22" class="me-3 img-fluid">Spotify</td>
+                                    <td><img src="{{ asset('assets/images/social/spotify.png') }}" alt="" width="22" class="me-3 img-fluid">Spotify</td>
                                     <td>$521</td>
                                     <td>August 01, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-success">Paid</span></td>
@@ -140,7 +140,7 @@
                                     <td>
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                     </td>
-                                    <td><img src="images/social/skype.png" alt="" width="25" class="me-3 img-fluid">Skype</td>
+                                    <td><img src="{{ asset('assets/images/social/skype.png') }}" alt="" width="25" class="me-3 img-fluid">Skype</td>
                                     <td>$234</td>
                                     <td>January 19, 2021</td>
                                     <td><span class="badge px-3 py-2 bg-warning">Due</span></td>
@@ -154,3 +154,7 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script src="{{asset('assets/vendor/chartjs/chartjs.js')}}"></script>
+    <script src="{{asset('assets/js/plugins/chartjs-bar-init.js')}}"></script>
+@endpush

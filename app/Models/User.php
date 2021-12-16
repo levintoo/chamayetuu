@@ -34,6 +34,8 @@ class User extends Authenticatable
         'dob',
         'residence',
         'status',
+        'otp_counter',
+
     ];
 
     /**

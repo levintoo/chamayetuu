@@ -16,7 +16,7 @@ class RegisterStepTwoComponent extends Component
     public function mount()
     {
         if (Auth::user()->status > 0) {
-            abort(405);
+            abort(403);
         }
     }
 
@@ -44,8 +44,9 @@ class RegisterStepTwoComponent extends Component
     public function resendcode()
     {
         $newotp = Otp::generate(Auth::user()->user_id, $digits = 4, $validity = 10);
-        session()->flash('status', "New otp has been sent $newotp->token");
-        Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
+            session()->flash('status', "New otp has been sent $newotp->token");
+            Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
+
     }
 
     public function render()

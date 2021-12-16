@@ -7,6 +7,8 @@ use App\Http\Livewire\RegisterStepTwoComponent;
 use App\Http\Livewire\TransactionsComponent;
 use App\Http\Livewire\UserSettingsComponent;
 use App\Http\Livewire\WalletComponent;
+use App\Mail\OtpMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,4 +47,3 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         });
     Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
 });
-

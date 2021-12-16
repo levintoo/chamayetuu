@@ -2,9 +2,12 @@
 
 namespace App\Actions\Fortify;
 
+use App\Mail\OtpMail;
 use App\Models\User;
 use Ichtrojan\Otp\Otp;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
@@ -36,10 +39,7 @@ class CreateNewUser implements CreatesNewUsers
         //generate custom user id
         $uid= Helper::IDGenerator(new User(),'user_id',4,'CH');
 
-        Otp::generate($uid, $digits = 4, $validity = 30);
-        //send otp via email
-
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'user_id' => $uid,
             'email' => $input['email'],
@@ -51,5 +51,11 @@ class CreateNewUser implements CreatesNewUsers
             'utype' => 'USR',
             'password' => Hash::make($input['password']),
         ]);
+
+        $newotp = Otp::generate($uid, $digits = 4, $validity = 30);
+        //send otp via email
+        $name = $input['name'];
+        Mail::to($input['email'])->send(new OtpMail($newotp->token, $name));
+        return $user;
     }
 }

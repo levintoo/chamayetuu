@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OtpMail;
 use App\Models\User;
 use Ichtrojan\Otp\Otp;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class RegisterStepTwoComponent extends Component
@@ -42,6 +44,7 @@ class RegisterStepTwoComponent extends Component
     {
         $newotp = Otp::generate(Auth::user()->user_id, $digits = 4, $validity = 10);
         session()->flash('status',"New otp has been sent $newotp->token");
+        Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
     }
     public function render()
     {

@@ -17,7 +17,7 @@
             <div class="col-xl-4">
                 <div class="page-title-content">
                     <h3>Transactions</h3>
-                    <p class="mb-2">Welcome Intez Invoice page</p>
+                    <p class="mb-2">Welcome Intez Transactions page</p>
                 </div>
             </div>
             <div class="col-auto">
@@ -31,7 +31,7 @@
             <div class="stat-widget d-flex align-items-center bg-white">
                 <div class="widget-icon me-3 bg-primary"><span><i class="ri-file-copy-2-line"></i></span></div>
                 <div class="widget-content">
-                    <h3>483</h3>
+                    <h3>{{$transactionrecords['all']}}</h3>
                     <p>Total Transactions</p>
                 </div>
             </div>
@@ -40,8 +40,8 @@
             <div class="stat-widget d-flex align-items-center bg-white">
                 <div class="widget-icon me-3 bg-success"><span><i class="ri-file-list-3-line"></i></span></div>
                 <div class="widget-content">
-                    <h3>273</h3>
-                    <p>Paid Invoices</p>
+                    <h3>{{$transactionrecords['paid']}}</h3>
+                    <p>Paid Transactions</p>
                 </div>
             </div>
         </div>
@@ -49,8 +49,8 @@
             <div class="stat-widget d-flex align-items-center bg-white">
                 <div class="widget-icon me-3 bg-warning"><span><i class="ri-file-paper-line"></i></span></div>
                 <div class="widget-content">
-                    <h3>121</h3>
-                    <p>Unpaid Invoices</p>
+                    <h3>{{$transactionrecords['unpaid']}}</h3>
+                    <p>Unpaid Transactions</p>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
             <div class="stat-widget d-flex align-items-center bg-white">
                 <div class="widget-icon me-3 bg-danger"><span><i class="ri-file-paper-2-line"></i></span></div>
                 <div class="widget-content">
-                    <h3>89</h3>
+                    <h3>{{$transactionrecords['canceled']}}</h3>
                     <p>Canceled Transactions</p>
                 </div>
             </div>

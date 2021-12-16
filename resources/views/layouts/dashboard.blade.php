@@ -140,7 +140,7 @@
                 </li>
                 <li><a href="{{route('transactions')}}">
                         <span><i class="ri-file-copy-2-line"></i></span>
-                        <span class="nav-text">Invoice</span>
+                        <span class="nav-text">Transactions</span>
                     </a>
                 </li>
                 <li><a href="{{route('user-settings')}}">
@@ -148,7 +148,7 @@
                         <span class="nav-text">Settings</span>
                     </a>
                 </li>
-                <li class="logout"><a href="signin.html">
+                <li class="logout"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <span><i class="ri-logout-circle-line"></i></span>
                         <span class="nav-text">Signout</span>
                     </a>

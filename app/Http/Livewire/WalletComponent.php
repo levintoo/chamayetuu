@@ -54,28 +54,6 @@ class WalletComponent extends Component
         $this->resetmpesaInput();
     }
 
-    public function getAcessToken()
-    {
-        $this->mpesaamount = '';
-        $url = env('MPESA_ENV') == 0
-            ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
-            : 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
-
-        $curl = curl_init($url);
-        curl_setopt_array(
-            $curl,
-            array(
-                CURLOPT_HTTPHEADER => ['Content-Type: application/json; charset=utf8'],
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_HEADER => false,
-                CURLOPT_USERPWD => env('MPESA_CONSUMER_KEY') . ':' . env('MPESA_CONSUMER_SECRET')
-            )
-        );
-        $response = json_decode(curl_exec($curl));
-        curl_close($curl);
-         return $response->access_token;
-//        session()->flash('mpesamessage','hello');
-    }
 // paypal functions
     public function resetpaypalInput()
     {
@@ -237,7 +215,6 @@ class WalletComponent extends Component
         } else {
             $balance = number_format($saving->balance, 0, '.', ',');
         }
-
 
         return view('livewire.wallet-component', ['saving' => $saving, 'balance' => $balance])->layout('layouts.dashboard');
     }

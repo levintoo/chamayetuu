@@ -126,14 +126,11 @@
                         <div class="cc-number">
 
                             {{--   mpesa payment form  --}}
-                            <form class="input-group">
+                            <form class="input-group" action="{{route('getAcessToken')}}" method="POST">
                                 @csrf
                                 <input type="number" class="form-control" placeholder="Enter amount to deposit"
                                        wire:model="mpesaamount">
-                                <a class="input-group-text" type="submit" wire:click="store()">
-                                    Deposit
-                                </a>
-
+                                <input value="Deposit" class="input-group-text" type="submit" >
                             </form>
 
                         </div>

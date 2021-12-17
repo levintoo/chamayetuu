@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         //payment routes
         Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
         Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
+        Route::post('/get-token', 'App\Http\Livewire\WalletComponent@getAcessToken')->name('getAcessToken');
     Route::get('/transactions',TransactionsComponent::class)->name('transactions');
     Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
     Route::get('/loans',LoanComponent::class)->name('loans');

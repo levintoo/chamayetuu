@@ -134,8 +134,8 @@
                     </a>
                 </li>
                 <li><a href="{{route('loans')}}">
-                        <span><i class="ri-secure-payment-line"></i></span>
-                        <span class="nav-text">Payment</span>
+                        <span><i class="ri-money-euro-box-line"></i></span>
+                        <span class="nav-text">Loans</span>
                     </a>
                 </li>
                 <li><a href="{{route('transactions')}}">

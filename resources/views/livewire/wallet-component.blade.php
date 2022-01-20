@@ -131,6 +131,7 @@
                                 <input type="number" class="form-control" placeholder="Enter amount to deposit"
                                        wire:model="mpesaamount">
                                 <input value="Deposit" class="input-group-text" type="submit" >
+
                             </form>
 
                         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MpesaPaymentController;
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\LoanComponent;
 use App\Http\Livewire\NotificationComponent;
@@ -36,7 +37,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         //payment routes
         Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
         Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
-        Route::post('/get-token', 'App\Http\Controllers\MpesaPaymentController@getAcessToken')->name('getAcessToken');
+        Route::post('/get-token', [MpesaPaymentController::class, 'getAcessToken'])->name('getAcessToken');
+        Route::post('register-urls', [MpesaPaymentController::class, 'registerURLS'])->name('registerURLS');
     Route::get('/transactions',TransactionsComponent::class)->name('transactions');
     Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
     Route::get('/loans',LoanComponent::class)->name('loans');

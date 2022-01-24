@@ -39,7 +39,21 @@ class MpesaPaymentController extends Controller
     }
     public function makeHttp($url, $body)
     {
-
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
+        $curl = curl_init();
+        curl_setopt_array(
+            $curl,
+            array(
+                CURLOPT_URL => $url,
+                CURLOPT_HTTPHEADER => array('Content-Type:application/json','Authorization:Bearer '. $this->getAccessToken()),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => json_encode($body)
+            )
+        );
+        $curl_response = curl_exec($curl);
+        curl_close($curl);
+        return $curl_response;
     }
     /**
      * Display a listing of the resource.

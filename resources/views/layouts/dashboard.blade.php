@@ -149,6 +149,16 @@
                         <span class="nav-text">Settings</span>
                     </a>
                 </li>
+                @auth
+                    @if(Auth::user()->utype === 'ADM')
+                <li><a href="{{route('admin-settings')}}">
+                        <span><i class="ri-admin-line"></i></span>
+                        <span class="nav-text">Admin</span>
+                    </a>
+                </li>
+                    @endif
+                @endif
+
                 <li class="logout"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <span><i class="ri-logout-circle-line"></i></span>
                         <span class="nav-text">Signout</span>

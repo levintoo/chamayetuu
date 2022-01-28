@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\MpesaPaymentController;
+use App\Http\Livewire\Admin\AddLoanProductComponent;
+use App\Http\Livewire\Admin\AdminActions;
+use App\Http\Livewire\Admin\EditLoanProductComponent;
+use App\Http\Livewire\Admin\LoanProductComponent;
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\LoanComponent;
 use App\Http\Livewire\NotificationComponent;
@@ -34,19 +38,29 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
     Route::get('/wallet',WalletComponent::class)->name('wallet');
-        //payment routes
-        Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
-        Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
-        Route::post('/get-token', [MpesaPaymentController::class, 'getAcessToken'])->name('getAcessToken');
-        Route::post('register-urls', [MpesaPaymentController::class, 'registerURLS'])->name('registerURLS');
+    Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
+    Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
+    Route::post('/get-token', [MpesaPaymentController::class, 'getAccessToken'])->name('getAccessToken');
+    Route::post('/register-urls', [MpesaPaymentController::class, 'registerUrls'])->name('registerUrls');
     Route::get('/transactions',TransactionsComponent::class)->name('transactions');
     Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
     Route::get('/loans',LoanComponent::class)->name('loans');
     Route::get('/notification',NotificationComponent::class)->name('notification');
 
-        Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
-                return view('dashboard');
-            })->name('dashboard2');
+        Route::middleware(['role_admin'])->prefix('admin')->group(function () {
+            Route::get('/settings', AdminActions::class)->name('admin-settings');
+            Route::get('/loanproduct', LoanProductComponent::class)->name('admin-loanproduct');
+            Route::post('/add/loanproduct', [AddLoanProductComponent::class, 'create'])->name('add-loanproduct');
+            Route::get('/newproduct', AddLoanProductComponent::class)->name('new-loan-product');
         });
+
+            Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
+                return view('dashboard');
+    })->name('dashboard2');
+
+    });
+
     Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
+
+
 });

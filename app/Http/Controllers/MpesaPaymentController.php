@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class MpesaPaymentController extends Controller
 {
-    public function getAcessToken()
+    public function getAccessToken()
     {
         $this->mpesaamount = '';
         $url = env('MPESA_ENV') == 0
@@ -25,9 +25,9 @@ class MpesaPaymentController extends Controller
         );
         $response = json_decode(curl_exec($curl));
         curl_close($curl);
-         return $response;
+         return $response->access_token;
     }
-    public function registerURLS()
+    public function registerUrls()
     {
         $body = array(
             'ShortCode' => env('MPESA_SHORTCODE'),
@@ -35,11 +35,18 @@ class MpesaPaymentController extends Controller
             'ConfirmationURL' => env('MPESA_TEST_URL') . '/api/confirmation',
             'ValidationURL' => env('MPESA_TEST_URL') . '/api/validation'
         );
+        $url = env('MPESA_ENV') == 0
+            ? 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl'
+            : 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
+
+        $response = $this->makeHttp($url, $body);
+
+        return $response();
 
     }
     public function makeHttp($url, $body)
     {
-        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
+//        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
         $curl = curl_init();
         curl_setopt_array(
             $curl,

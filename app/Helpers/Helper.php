@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Helper
 {
@@ -25,5 +27,38 @@ class Helper
       }
       return $prefix.'-'.$zeros.$last_number;
   }
+    public function sendSMS($recipient, $message)
+    {
+        $apiKey = config('app.sms_api_key');;
+        $senderId = config('app.sender_id');
+
+        $client = new Client();
+        try {
+            $fullURL = "https://api.mobilesasa.com/v1/send/message";
+
+            $body = [
+                "senderID" => $senderId,
+                "phone" => $recipient,
+                "message" => $message,
+            ];
+
+            $res = $client->post($fullURL, [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer ' . $apiKey,
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => $body
+            ]);
+
+            $response = json_decode($res->getBody(), TRUE);
+            // \Illuminate\Support\Facades\Log::info(json_encode($response));
+            // $smsCode = $response['messageID'][0];
+
+        } catch (GuzzleException $e) {
+        }
+
+        return json_encode($response ?? []);
+    }
 }
 

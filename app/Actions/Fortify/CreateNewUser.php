@@ -36,8 +36,16 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        //generate custom user id
         $uid= Helper::IDGenerator(new User(),'user_id',4,'CH');
+
+        $newotp = Otp::generate($uid, $digits = 4, $validity = 30);
+
+//        $name = $input['name'];
+//        Mail::to($input['email'])->send(new OtpMail($newotp->token, $name));
+
+//        $message = 'Your verification code is '.$newotp->token;
+//        $phone = $input['phone'];
+//        $otpsms = Helper::sendSMS($phone ,$message);
 
         $user = User::create([
             'name' => $input['name'],
@@ -52,10 +60,6 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
-        $newotp = Otp::generate($uid, $digits = 4, $validity = 30);
-        //send otp via email
-        $name = $input['name'];
-        Mail::to($input['email'])->send(new OtpMail($newotp->token, $name));
         return $user;
     }
 }

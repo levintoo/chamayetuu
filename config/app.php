@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'sender_id' => env('SENDER_ID', ''),
+    'sms_api_key' => env('SMS_API_KEY', ''),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -244,6 +246,9 @@ return [
             'MPESA_TEST_URL',
             'MPESA_PASSKEY',
             'MPESA_B2C_PASSWORD',
+
+            'SENDER_ID',
+            'SMS_API_KEY',
         ]
     ]
 

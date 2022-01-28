@@ -5,7 +5,7 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-xl-4">
                         <div class="page-title-content">
-                            <h3>Admin</h3>
+                            <h3>loans</h3>
                             <p class="mb-2">Welcome to Intez Admin page</p>
                         </div>
                     </div>
@@ -32,12 +32,12 @@
                     @endif
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Loans</h4>
+                            <h4 class="card-title">unapproved loans</h4>
                             <div>
                             </div>
                         </div>
                         <div class="card-header">
-                                <a href="{{route('new-loan-product')}}" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0"><i class="ri-add-circle-fill"></i></span></a>
+                            <a href="" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0"><i class="ri-add-circle-fill"></i></span></a>
                             <div>
                                 <select name="orderby" class="form-select" wire:model="sorting">
                                     <option class="form-select" value="date" selected="selected">Default Sorting</option>
@@ -56,32 +56,26 @@
                                             <th>
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                             </th>
-                                            <th>Loan</th>
-                                            <th>Loan ID</th>
-                                            <th>Limit</th>
-                                            <th>Interest rate</th>
-                                            <th>Interest type</th>
+                                            <th>Name</th>
+                                            <th>Sec ID</th>
+                                            <th>National ID</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($loans as $loan)
                                             <tr>
-                                            <td>
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
-                                            </td>
-                                            <td>{{$loan->name}}</td>
-                                            <td>{{$loan->loan_id}}</td>
-                                            <td>{{$loan->limit}}</td>
-                                            <td>{{$loan->interest_rate}}</td>
-                                            <td>{{$loan->interest_type}}</td>
-                                            <td>
-                                                <a href="{{ route('edit-loan-product',['loan_id'=>$loan->loan_id]) }}" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
-                                                <a wire:click.prevent="deleteProduct('{{$loan->loan_id}}')" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
-                                            </td>
-                                            </td>
-                                        </tr>
-                                        @endforeach
+                                                <td>
+                                                    <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
+                                                </td>
+                                                <td>Name</td>
+                                                <td>boom</td>
+                                                <td>bow</td>
+                                                <td>
+                                                    <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
+                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                                </td>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

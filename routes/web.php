@@ -4,8 +4,11 @@ use App\Http\Controllers\MpesaPaymentController;
 use App\Http\Livewire\Admin\AddLoanProductComponent;
 use App\Http\Livewire\Admin\AdminActions;
 use App\Http\Livewire\Admin\EditLoanProductComponent;
+use App\Http\Livewire\Admin\LoanApprovalComponent;
 use App\Http\Livewire\Admin\LoanProductComponent;
+use App\Http\Livewire\Admin\SecretaryApprovalComponent;
 use App\Http\Livewire\Admin\SecretaryApprovalProductComponent;
+use App\Http\Livewire\Admin\UserManagementComponent;
 use App\Http\Livewire\DashboardHomeComponent;
 use App\Http\Livewire\LoanComponent;
 use App\Http\Livewire\NotificationComponent;
@@ -55,8 +58,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('/newproduct', AddLoanProductComponent::class)->name('new-loan-product');
             Route::get('/editproduct/{loan_id}', EditLoanProductComponent::class)->name('edit-loan-product');
             Route::post('/editproduct', [EditLoanProductComponent::class, 'updateProduct'])->name('edit-product');
-            Route::get('/secretary-approval', SecretaryApprovalProductComponent::class)->name('secretary.approval');
-//            Route::get('/users-management', ::class)->name('users.management');
+            Route::get('/secretary-approval', SecretaryApprovalComponent::class)->name('secretary.approval');
+            Route::get('/users-management', UserManagementComponent::class)->name('user.management');
+            Route::get('/loan-approval', LoanApprovalComponent::class)->name('loan.approval');
         });
 
             Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {

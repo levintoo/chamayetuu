@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="card-header">
-                            <a href="" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0"><i class="ri-add-circle-fill"></i></span></a>
+                            <a href="{{route('register.admin')}}" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0" data-bs-toggle="tooltip" data-bs-placement="top" title="Add admin"><i class="ri-add-circle-fill"></i></span></a>
                             <div>
                                 <input name="orderby" class="form-control" wire:model="sorting">
                                 <span></span>
@@ -56,6 +56,8 @@
                                             <th>User ID</th>
                                             <th>Role</th>
                                             <th>National ID</th>
+                                            <th>Email</th>
+                                            <th>Utype</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
@@ -69,9 +71,12 @@
                                                 <td>{{$user->user_id}}</td>
                                                 <td>{{$user->utype}}</td>
                                                 <td>{{$user->national_id}}</td>
+                                                <td>{{$user->email}}</td>
+                                                <td>{{$user->utype}}</td>
                                                 <td>
-                                                    <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
-                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                                    <button type="submit" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
+                                                    <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Promote user"><span class="fs-4 fst-normal" style="color:green"><i class="ri-arrow-up-s-fill"></i></span></a>
+                                                    <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Terminate user"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
                                                 </td>
                                                 </td>
                                             </tr>
@@ -88,3 +93,4 @@
 
     </div>
 </div>
+

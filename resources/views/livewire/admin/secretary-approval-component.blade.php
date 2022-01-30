@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="card-header">
-                            <a href="" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0"><i class="ri-add-circle-fill"></i></span></a>
+                            <a href="" class="btn" style="background-color:transparent"><span class="fs-3" style="color:#1652F0" data-bs-toggle="tooltip" data-bs-placement="top" title="Add secretary"><i class="ri-add-circle-fill"></i></span></a>
                             <div>
                                 <select name="orderby" class="form-select" wire:model="sorting">
                                     <option class="form-select" value="date" selected="selected">Default Sorting</option>
@@ -72,8 +72,7 @@
                                                 <td>{{$secretary->user_id}}</td>
                                                 <td>{{$secretary->national_id}}</td>
                                                 <td>
-                                                    <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
-                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove secretary"><i class="ri-delete-bin-6-line"></i></span></a>
                                                 </td>
                                                 </td>
                                             </tr>

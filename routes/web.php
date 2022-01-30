@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\AdminActions;
 use App\Http\Livewire\Admin\EditLoanProductComponent;
 use App\Http\Livewire\Admin\LoanApprovalComponent;
 use App\Http\Livewire\Admin\LoanProductComponent;
+use App\Http\Livewire\Admin\RegisterNewAdminComponent;
 use App\Http\Livewire\Admin\SecretaryApprovalComponent;
 use App\Http\Livewire\Admin\SecretaryApprovalProductComponent;
 use App\Http\Livewire\Admin\UserManagementComponent;
@@ -40,16 +41,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::middleware(['registration_completed'])->group(function () {
 
-    Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
-    Route::get('/wallet',WalletComponent::class)->name('wallet');
-    Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
-    Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
-    Route::post('/get-token', [MpesaPaymentController::class, 'getAccessToken'])->name('getAccessToken');
-    Route::post('/register-urls', [MpesaPaymentController::class, 'registerUrls'])->name('registerUrls');
-    Route::get('/transactions',TransactionsComponent::class)->name('transactions');
-    Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
-    Route::get('/loans',LoanComponent::class)->name('loans');
-    Route::get('/notification',NotificationComponent::class)->name('notification');
+        Route::get('/dashboard',DashboardHomeComponent::class)->name('dashboard');
+        Route::get('/wallet',WalletComponent::class)->name('wallet');
+        Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
+        Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
+        Route::post('/get-token', [MpesaPaymentController::class, 'getAccessToken'])->name('getAccessToken');
+        Route::post('/register-urls', [MpesaPaymentController::class, 'registerUrls'])->name('registerUrls');
+        Route::get('/transactions',TransactionsComponent::class)->name('transactions');
+        Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
+        Route::get('/loans',LoanComponent::class)->name('loans');
+        Route::get('/notification',NotificationComponent::class)->name('notification');
 
         Route::middleware(['role_admin'])->prefix('admin')->group(function () {
             Route::get('/settings', AdminActions::class)->name('admin-settings');
@@ -61,11 +62,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('/secretary-approval', SecretaryApprovalComponent::class)->name('secretary.approval');
             Route::get('/users-management', UserManagementComponent::class)->name('user.management');
             Route::get('/loan-approval', LoanApprovalComponent::class)->name('loan.approval');
+            Route::get('/register-admin', RegisterNewAdminComponent::class)->name('register.admin');
+            Route::post('/add-admin', [RegisterNewAdminComponent::class,'registerAdmin'])->name('add.admin');
         });
 
-            Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
-                return view('dashboard');
-    })->name('dashboard2');
+        Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {
+            return view('dashboard');
+        })->name('dashboard2');
 
     });
 

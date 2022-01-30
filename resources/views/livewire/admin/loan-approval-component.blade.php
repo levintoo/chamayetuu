@@ -63,19 +63,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
-                                                </td>
-                                                <td>Name</td>
-                                                <td>boom</td>
-                                                <td>bow</td>
-                                                <td>
-                                                    <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
-                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
-                                                </td>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
+                                            </td>
+                                            <td>Name</td>
+                                            <td>boom</td>
+                                            <td>bow</td>
+                                            <td>
+                                                <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
+                                                <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                            </td>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

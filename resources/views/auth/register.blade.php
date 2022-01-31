@@ -69,7 +69,7 @@
 
                                         <div class="mb-3">
                                             <label for="userpassword" class="form-label">Confirm password</label>
-                                            <input type="password" class="form-control" id="userpassword" placeholder="Re-enter password" required type="password" name="password_confirmation" required autocomplete="new-password">
+                                            <input type="password" class="form-control" id="confirmuserpassword" placeholder="Re-enter password" required type="password" name="password_confirmation" required autocomplete="new-password">
                                             <div class="invalid-feedback">
                                                 Please Re-enter Password
                                             </div>
@@ -78,7 +78,7 @@
 
                                         <div class="mb-3">
                                             <label for="dob" class="form-label">Confirm password</label>
-                                            <input type="date" class="form-control" id="dob" placeholder="dob" required type="dob" name="dob" required autocomplete="dob">
+                                            <input type="text" class="form-control" id="dob" placeholder="dob" required type="dob" name="dob" required autocomplete="dob">
                                             <div class="invalid-feedback">
                                                 Please dob
                                             </div>
@@ -250,3 +250,10 @@
         <!-- end container fluid -->
     </div>
 </x-guest-layout>
+@push('guest-scripts')
+<script>
+    $(document).ready(function(){
+        $('#dob').timepicker({});
+    });
+</script>
+    @endpush

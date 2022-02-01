@@ -42,8 +42,8 @@ class CreateNewUser implements CreatesNewUsers
         $newotp =  $otp->generate($uid, $digits = 4, $validity = 30);
 		
 
-        $name = $input['name'];
-		Mail::to($input['email'])->send(new OtpMail($newotp->token, $name));
+        //$name = $input['name'];
+		//Mail::to($input['email'])->send(new OtpMail($newotp->token, $name));
 
 //        $message = 'Your verification code is '.$newotp->token;
 //        $phone = $input['phone'];

@@ -69,16 +69,16 @@
 
                                         <div class="mb-3">
                                             <label for="userpassword" class="form-label">Confirm password</label>
-                                            <input type="password" class="form-control" id="" placeholder="Re-enter text" required type="password" name="dob" required autocomplete="new-password">
+                                            <input type="password" class="form-control" id="confirmuserpassword" placeholder="Re-enter password" required type="password" name="password_confirmation" required autocomplete="new-password">
                                             <div class="invalid-feedback">
-                                                Dob
+                                                Please Re-enter Password
                                             </div>
                                         </div>
 
 
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">dob password</label>
-                                            <input type="date" class="form-control" id="dob" placeholder="dob" required type="dob" name="dob" required autocomplete="dob">
+                                            <label for="dob" class="form-label">dob</label>
+                                            <input type="date" class="form-control" id="dob" placeholder="dob" required name="dob" required autocomplete="dob">
                                             <div class="invalid-feedback">
                                                 Please dob
                                             </div>

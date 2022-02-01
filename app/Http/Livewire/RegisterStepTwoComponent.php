@@ -46,7 +46,7 @@ class RegisterStepTwoComponent extends Component
     {
         //$newotp = Helper::generate(Auth::user()->user_id, $digits = 4, $validity = 10);
 		$otp = new Otp;
-        $newotp =  $otp->generate($uid, $digits = 4, $validity = 30);
+        $newotp =  $otp->generate(Auth::user()->user_id, $digits = 4, $validity = 30);
             session()->flash('status', "New otp has been sent $newotp->token");
             Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
 

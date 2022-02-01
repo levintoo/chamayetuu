@@ -37,7 +37,8 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         $uid= Helper::IDGenerator(new User(),'user_id',4,'CH');
-
+		
+		$otp = new Otp;
         $newotp =  $otp->generate($uid, $digits = 4, $validity = 30);
 		
 

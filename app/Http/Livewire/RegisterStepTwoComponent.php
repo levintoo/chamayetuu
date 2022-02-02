@@ -34,10 +34,8 @@ class RegisterStepTwoComponent extends Component
         $this->validate([
             'otp_input' => 'required|numeric',
         ]);
-
-        $otp = new Otp;
         
-        $otpresponse = $otp::validate(Auth::user()->user_id, $this->otp_input);
+        $otpresponse = Helper::validate(Auth::user()->user_id, $this->otp_input);
         User::where('user_id', Auth::user()->user_id)->first()->update([
             'status' => "1",
         ]);

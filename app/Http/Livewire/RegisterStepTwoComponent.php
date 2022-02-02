@@ -14,6 +14,7 @@ class RegisterStepTwoComponent extends Component
 {
     public $otp_input;
 
+
     public function mount()
     {
         if (Auth::user()->status > 0) {
@@ -34,7 +35,9 @@ class RegisterStepTwoComponent extends Component
             'otp_input' => 'required|numeric',
         ]);
 
-        $otpresponse = Otp::validate(Auth::user()->user_id, $this->otp_input);
+        $otp = new Otp;
+        
+        $otpresponse = $otp::validate(Auth::user()->user_id, $this->otp_input);
         User::where('user_id', Auth::user()->user_id)->first()->update([
             'status' => "1",
         ]);
@@ -48,7 +51,7 @@ class RegisterStepTwoComponent extends Component
 		$otp = new Otp;
         $newotp =  $otp->generate(Auth::user()->user_id, $digits = 4, $validity = 30);
             session()->flash('status', "New otp has been sent $newotp->token");
-            Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
+          //Mail::to(Auth::user()->email)->send(new OtpMail($newotp->token, Auth::user()->name));
 
     }
 

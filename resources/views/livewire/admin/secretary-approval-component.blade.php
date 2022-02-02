@@ -83,12 +83,21 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->utype}}</td>
                                                 <td>
-                                                    <form id="reset-form" method="POST" action="{{ route('admin.password.email') }}">
+                                                    <form id="reset-form.{{$user->user_id}}" method="POST" action="{{ route('admin.password.email') }}">
                                                         @csrf
                                                         <input type="hidden" class="form-control" name="email" value="{{$user->email}}" >
                                                     </form>
-                                                    <button type="submit" form="reset-form" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
-                                                    <button type="submit" form="reset-form" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Promote user"><span class="fs-4 fst-normal" style="color:green"><i class="ri-arrow-up-s-fill"></i></span></button>
+                                                    <form id="promote-form.{{$user->user_id}}" method="POST" action="{{ route('user.promote') }}">
+                                                        @csrf
+                                                        <input type="hidden" class="form-control" name="user_id" value="{{$user->user_id}}" >
+                                                    </form>
+                                                    <form id="demote-form.{{$user->user_id}}" method="POST" action="{{ route('user.demote') }}">
+                                                        @csrf
+                                                        <input type="hidden" class="form-control" name="user_id" value="{{$user->user_id}}" >
+                                                    </form>
+                                                    <button type="submit" form="reset-form.{{$user->user_id}}" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
+                                                    <button type="submit" form="promote-form.{{$user->user_id}}" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Promote user"><span class="fs-4 fst-normal" style="color:green"><i class="ri-arrow-up-s-fill"></i></span></button>
+                                                    <button type="submit" form="demote-form.{{$user->user_id}}" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Demote secretary"><span class="fs-4 fst-normal" style="color:red"><i class="ri-arrow-down-s-fill"></i></span></button>
                                                     <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Terminate user"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
                                                 </td>
                                                 </td>

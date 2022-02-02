@@ -62,6 +62,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::post('/editproduct', [EditLoanProductComponent::class, 'updateProduct'])->name('edit-product');
             Route::get('/secretary-approval', SecretaryApprovalComponent::class)->name('secretary.approval');
             Route::get('/users-management', UserManagementComponent::class)->name('user.management');
+            Route::post('/users-management/promote', [UserManagementComponent::class,'promoteUser'])->name('user.promote');
+            Route::post('/users-management/demote', [UserManagementComponent::class,'demoteUser'])->name('user.demote');
             Route::get('/loan-approval', LoanApprovalComponent::class)->name('loan.approval');
             Route::get('/register-admin', RegisterNewAdminComponent::class)->name('register.admin');
             Route::post('/add-admin', [RegisterNewAdminComponent::class,'registerAdmin'])->name('add.admin');

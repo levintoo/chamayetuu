@@ -17,7 +17,7 @@ class SecretaryApprovalComponent extends Component
     public function mount()
     {
         $this->sorting = "default";
-        $this->filter = "";
+        $this->filter = '';
         $this->pagesize = 10;
         $this->display = 1;
     }

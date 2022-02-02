@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Mail\OtpMail;
 use App\Models\User;
 use Ichtrojan\Otp\Otp;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
@@ -29,13 +30,18 @@ class RegisterStepTwoComponent extends Component
         ]);
     }
 
-    public function verifyuser()
+    public function verifyuser(Request $request)
     {
-        $this->validate([
-            'otp_input' => 'required|numeric',
+        $request->validate([
+            'otp_input' => 'required|numeric:4',
         ]);
-        
-        $otpresponse = Helper::validate(Auth::user()->user_id, $this->otp_input);
+
+        $otpresponse = Otp::validate(Auth::user()->user_id, $request->otp_input);
+
+        if($otpresponse->status != 'true'){
+            session()->flash('status', $otpresponse->message);
+            return redirect(route('register.step-two'));
+        }
         User::where('user_id', Auth::user()->user_id)->first()->update([
             'status' => "1",
         ]);

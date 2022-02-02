@@ -73,6 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::get('/register/step-two',RegisterStepTwoComponent::class)->name('register.step-two');
+    Route::post('/register/otp-validate',[RegisterStepTwoComponent::class,'verifyuser'])->name('otp.validate');
 
 
 });

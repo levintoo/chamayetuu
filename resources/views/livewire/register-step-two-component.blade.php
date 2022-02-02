@@ -20,18 +20,17 @@
                     {{ session('error') }}
                 </div>
             @endif
-                <form  method="POST" action="">
+                <form  method="POST" action="{{route('otp.validate')}}">
                     @csrf
-
                     <div class="mb-3">
                         <label value="Code"/>
-                        <input type="number" name=""  required autofocus wire:model="otp_input"/>
+                        <input type="number" name="otp_input"  required autofocus wire:model="otp_input"/>
                     </div>
 
                     <div class="d-flex justify-content-center mt-4">
                         @error('otp_input')<p class="text-danger">{{$message}}</p>@enderror
                     </div>
-                    <button type="button" class="btn btn-primary" wire:click="verifyuser">
+                    <button type="submit" class="btn btn-primary">
                         verify
                     </button>
                 </form>

@@ -20,6 +20,7 @@ use App\Http\Livewire\WalletComponent;
 use App\Mail\OtpMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
             Route::get('/loan-approval', LoanApprovalComponent::class)->name('loan.approval');
             Route::get('/register-admin', RegisterNewAdminComponent::class)->name('register.admin');
             Route::post('/add-admin', [RegisterNewAdminComponent::class,'registerAdmin'])->name('add.admin');
+            Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+                ->name('admin.password.email');
         });
 
         Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard2', function () {

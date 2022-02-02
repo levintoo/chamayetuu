@@ -50,6 +50,7 @@ class RegisterStepTwoComponent extends Component
         session()->flash('status', $otpresponse->message);
         return redirect(route('dashboard'));
     }
+
     public function validateOtp($identifier, $token) : object
     {
         $otp = Model::where('identifier', $identifier)->where('token', $token)->first();
@@ -90,9 +91,9 @@ class RegisterStepTwoComponent extends Component
             }
         }
     }
+
     public function resendcode()
     {
-        //$newotp = Helper::generate(Auth::user()->user_id, $digits = 4, $validity = 10);
 		$otp = new Otp;
         $newotp =  $otp->generate(Auth::user()->user_id, $digits = 4, $validity = 30);
             session()->flash('status', "New otp has been sent $newotp->token");

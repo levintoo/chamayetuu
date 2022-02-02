@@ -3,6 +3,7 @@
         <div class="col-xl-12">
             <div class="page-title">
                 <div class="row align-items-center justify-content-between">
+
                     <div class="col-xl-4">
                         <div class="page-title-content">
                             <h3>All users</h3>
@@ -27,6 +28,11 @@
             </div>
             <div class="row">
                 <div class="col-xl-12">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     @if(Session::has('message'))
                         <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
                     @endif
@@ -74,7 +80,11 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->utype}}</td>
                                                 <td>
-                                                    <button type="submit" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
+                                                    <form id="reset-form" method="POST" action="{{ route('admin.password.email') }}">
+                                                        @csrf
+                                                        <input type="hidden" class="form-control" name="email" value="{{$user->email}}" >
+                                                    </form>
+                                                    <button type="submit" form="reset-form" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
                                                     <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Promote user"><span class="fs-4 fst-normal" style="color:green"><i class="ri-arrow-up-s-fill"></i></span></a>
                                                     <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Terminate user"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
                                                 </td>

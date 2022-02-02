@@ -19,6 +19,11 @@
                                     <div class="alert alert-success text-center my-4" role="alert">
                                         Enter your Email and instructions will be sent to you!
                                     </div>
+                                    @if (session('status'))
+                                        <div class="alert alert-success" role="alert">
+                                            {{ session('status') }}
+                                        </div>
+                                    @endif
                                     <x-jet-validation-errors class="mb-4 text-danger" />
                                     <form class="mt-4" method="POST" action="{{ route('password.email') }}">
                                         @csrf

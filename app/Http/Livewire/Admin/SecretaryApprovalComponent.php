@@ -10,12 +10,14 @@ class SecretaryApprovalComponent extends Component
 {
 
     public $sorting;
+    public $filter;
     public $pagesize;
     public $display;
 
     public function mount()
     {
         $this->sorting = "default";
+        $this->filter = "";
         $this->pagesize = 10;
         $this->display = 1;
     }
@@ -23,7 +25,11 @@ class SecretaryApprovalComponent extends Component
     use WithPagination;
     public function render()
     {
-        $secretary =  User::where('utype','SEC')->orderBy('created_at','DESC')->paginate($this->pagesize);
-        return view('livewire.admin.secretary-approval-component',['secretary'=>$secretary])->layout('layouts.dashboard');
+        if($this->filter != ""){
+            $users =  User::where([['email',$this->filter] , ['utype','SEC']])->orderBy('created_at','DESC')->paginate($this->pagesize);
+        }else{
+            $users =  User::where('utype','SEC')->orderBy('created_at','DESC')->paginate($this->pagesize);
+        }
+        return view('livewire.admin.secretary-approval-component',['users'=>$users])->layout('layouts.dashboard');
     }
 }

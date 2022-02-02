@@ -10,12 +10,14 @@ class UserManagementComponent extends Component
 {
 
     public $sorting;
+    public $filter;
     public $pagesize;
     public $display;
 
     public function mount()
     {
         $this->sorting = "default";
+        $this->filter = "";
         $this->pagesize = 10;
         $this->display = 1;
     }
@@ -23,7 +25,11 @@ class UserManagementComponent extends Component
     use WithPagination;
     public function render()
     {
-        $users =  User::orderBy('created_at','DESC')->paginate($this->pagesize);
+        if($this->filter != ""){
+            $users =  User::where('email',$this->filter)->orderBy('created_at','DESC')->paginate($this->pagesize);
+        }else{
+            $users =  User::orderBy('created_at','DESC')->paginate($this->pagesize);
+        }
         return view('livewire.admin.user-management-component',['users'=>$users])->layout('layouts.dashboard');
     }
 }

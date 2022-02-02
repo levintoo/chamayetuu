@@ -27,6 +27,11 @@
             </div>
             <div class="row">
                 <div class="col-xl-12">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     @if(Session::has('message'))
                         <div class="alert alert-success" role="alert">{{Session::get('message')}}</div>
                     @endif
@@ -57,22 +62,34 @@
                                                 <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                             </th>
                                             <th>Name</th>
-                                            <th>Sec ID</th>
+                                            <th>User ID</th>
+                                            <th>Role</th>
                                             <th>National ID</th>
+                                            <th>Email</th>
+                                            <th>Utype</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($secretary as $secretary)
+                                        @foreach($users as $user)
                                             <tr>
                                                 <td>
                                                     <div class="form-check"><input class="form-check-input" type="checkbox" id="flexCheckDefault" value=""></div>
                                                 </td>
-                                                <td>{{$secretary->name}}</td>
-                                                <td>{{$secretary->user_id}}</td>
-                                                <td>{{$secretary->national_id}}</td>
+                                                <td>{{$user->name}}</td>
+                                                <td>{{$user->user_id}}</td>
+                                                <td>{{$user->utype}}</td>
+                                                <td>{{$user->national_id}}</td>
+                                                <td>{{$user->email}}</td>
+                                                <td>{{$user->utype}}</td>
                                                 <td>
-                                                    <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove secretary"><i class="ri-delete-bin-6-line"></i></span></a>
+                                                    <form id="reset-form" method="POST" action="{{ route('admin.password.email') }}">
+                                                        @csrf
+                                                        <input type="hidden" class="form-control" name="email" value="{{$user->email}}" >
+                                                    </form>
+                                                    <button type="submit" form="reset-form" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Request reset password"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-lock-unlock-line"></i></span></button>
+                                                    <button type="submit" form="reset-form" class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Promote user"><span class="fs-4 fst-normal" style="color:green"><i class="ri-arrow-up-s-fill"></i></span></button>
+                                                    <a class="btn" style="background-color:transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Terminate user"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
                                                 </td>
                                                 </td>
                                             </tr>

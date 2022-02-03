@@ -17,10 +17,17 @@ class CheckAdminRoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->utype!='ADM')
+        if(Auth::user()->utype=='SUPERADMIN')
         {
-            abort(403);
+            return $next($request);
+        }else if(Auth::user()->utype=='ADM')
+        {
+            return $next($request);
         }
-        return $next($request);
+        else if(Auth::user()->utype=='SEC')
+        {
+            return $next($request);
+        }
+        abort(403);
     }
 }

@@ -63,7 +63,6 @@
                                             <th>Role</th>
                                             <th>National ID</th>
                                             <th>Email</th>
-                                            <th>Utype</th>
                                             <th>Actions</th>
                                         </tr>
                                         </thead>
@@ -78,7 +77,6 @@
                                                 <td>{{$user->utype}}</td>
                                                 <td>{{$user->national_id}}</td>
                                                 <td>{{$user->email}}</td>
-                                                <td>{{$user->utype}}</td>
                                                 <td>
                                                     <form id="reset-form.{{$user->user_id}}" method="POST" action="{{ route('admin.password.email') }}">
                                                         @csrf

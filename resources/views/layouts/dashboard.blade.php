@@ -150,7 +150,7 @@
                     </a>
                 </li>
                 @auth
-                    @if(Auth::user()->utype === 'ADM')
+                    @if(Auth::user()->utype != 'USR')
                 <li><a href="{{route('admin-settings')}}">
                         <span><i class="ri-admin-line"></i></span>
                         <span class="nav-text">Admin</span>

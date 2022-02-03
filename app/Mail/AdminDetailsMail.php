@@ -31,7 +31,7 @@ class AdminDetailsMail extends Mailable
      */
     public function build()
     {
-        return $this->from('chamayetu@co.ke', Auth::user()->name)
+        return $this->from('chamayetu@co.ke', 'chamayetu')
             ->subject('Chamayetu Admin Password')
             ->markdown('mails.AdminDetailsMail')
             ->with([

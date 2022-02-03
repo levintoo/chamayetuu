@@ -16,14 +16,15 @@
                                         <h5 class="mb-0">Reset Password</h5>
                                         <p class="text-muted mt-2">Reset Password with Minia.</p>
                                     </div>
-                                    <div class="alert alert-success text-center my-4" role="alert">
-                                        Enter your Email and instructions will be sent to you!
-                                    </div>
                                     @if (session('status'))
                                         <div class="alert alert-success" role="alert">
                                             {{ session('status') }}
                                         </div>
-                                    @endif
+                                    @else
+                                        <div class="alert alert-success text-center my-4" role="alert">
+                                            Enter your Email and instructions will be sent to you!
+                                        </div>
+                                        @endif
                                     <x-jet-validation-errors class="mb-4 text-danger" />
                                     <form class="mt-4" method="POST" action="{{ route('password.email') }}">
                                         @csrf

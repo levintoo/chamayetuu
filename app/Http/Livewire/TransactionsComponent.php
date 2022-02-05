@@ -19,13 +19,13 @@ class TransactionsComponent extends Component
     public function render()
     {
         if ($this->sorting == 'date') {
-            $transactions = TransactionsModel::where([['user_id', Auth::user()->user_id], ['status', '1']])->orderBy('transacted_at', 'ASC')->paginate($this->pagesize);
+            $transactions = TransactionsModel::where('user_id', Auth::user()->user_id)->orderBy('transacted_at', 'ASC')->paginate($this->pagesize);
         } elseif ($this->sorting == 'amount') {
-            $transactions = TransactionsModel::where([['user_id', Auth::user()->user_id], ['status', '1']])->orderBy('amount', 'DESC')->paginate($this->pagesize);
+            $transactions = TransactionsModel::where('user_id', Auth::user()->user_id)->orderBy('amount', 'DESC')->paginate($this->pagesize);
         } elseif ($this->sorting == 'status') {
-            $transactions = TransactionsModel::where([['user_id', Auth::user()->user_id], ['status', '1']])->orderBy('status', 'DESC')->paginate($this->pagesize);
+            $transactions = TransactionsModel::where('user_id', Auth::user()->user_id)->orderBy('status', 'DESC')->paginate($this->pagesize);
         } else {
-            $transactions = TransactionsModel::where([['user_id', Auth::user()->user_id], ['status', '1']])->orderBy('transacted_at', 'DESC')->paginate($this->pagesize);
+            $transactions = TransactionsModel::where('user_id', Auth::user()->user_id)->orderBy('transacted_at', 'DESC')->paginate($this->pagesize);
         }
         $transactionrecords = [
             'all' => TransactionsModel::where('user_id', Auth::user()->user_id)->count(),

@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Savings;
 use App\Models\TransactionsModel;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -54,7 +53,11 @@ class WalletComponent extends Component
         $this->resetmpesaInput();
     }
 
-// paypal functions
+    public function resetmpesaInput()
+    {
+        $this->mpesaamount = '';
+    }
+
     public function resetpaypalInput()
     {
         $this->paypalamount = '';
@@ -66,7 +69,7 @@ class WalletComponent extends Component
             'paypalamount' => 'required|numeric|gt:99',
         ]);
 
-        $pamount = $request->paypalamount / 100;
+        $pamount = $request->paypalamount/100;
 
         $apiContext = new ApiContext(
             new OAuthTokenCredential(
@@ -198,7 +201,6 @@ class WalletComponent extends Component
         $saving->balance = $oldbalance + 100;
         $saving->save();
         session()->flash('paypalmessage', "ona huyuu");
-        $this->resetpaypalInput();
     }
 
     //render with savings info
@@ -215,7 +217,6 @@ class WalletComponent extends Component
         } else {
             $balance = number_format($saving->balance, 0, '.', ',');
         }
-
         return view('livewire.wallet-component', ['saving' => $saving, 'balance' => $balance])->layout('layouts.dashboard');
     }
 }

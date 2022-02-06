@@ -8,7 +8,6 @@ class MpesaPaymentController extends Controller
 {
     public function getAccessToken()
     {
-        $this->mpesaamount = '';
         $url = env('MPESA_ENV') == 0
             ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
             : 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
@@ -25,9 +24,36 @@ class MpesaPaymentController extends Controller
         );
         $response = json_decode(curl_exec($curl));
         curl_close($curl);
-         return $response->access_token;
+
+        // return $response;
+        return $response->access_token;
     }
-    public function registerUrls()
+
+    public function b2cRequest(Request $request)
+    {
+        $curl_post_data = array(
+            'InitiatorName' => env('MPESA_B2C_INITIATOR'),
+            'SecurityCredential' => env('MPESA_B2C_PASSOWRD'),
+            'CommandID' => 'SalaryPayment',
+            'Amount' => $request->amount,
+            'PartyA' => env('MPESA_SHORTCODE'),
+            'PartyB' => $request->phone,
+            'Remarks' => $request->remarks,
+            'QueueTimeOutURL' => env('MPESA_TEST_URL') . '/mpesaLaravel/api/b2ctimeout',
+            'ResultURL' => env('MPESA_TEST_URL') . '/mpesaLaravel/api/b2ccallback',
+            'Occasion' => $request->occasion
+        );
+
+        $res = $this->makeHttp('/b2c/v1/paymentrequest', $curl_post_data);
+
+        return $res;
+    }
+
+
+    /**
+     * Register URL
+     */
+    public function registerURLS()
     {
         $body = array(
             'ShortCode' => env('MPESA_SHORTCODE'),
@@ -35,18 +61,109 @@ class MpesaPaymentController extends Controller
             'ConfirmationURL' => env('MPESA_TEST_URL') . '/api/confirmation',
             'ValidationURL' => env('MPESA_TEST_URL') . '/api/validation'
         );
-        $url = env('MPESA_ENV') == 0
-            ? 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl'
-            : 'https://api.safaricom.co.ke/mpesa/c2b/v1/registerurl';
 
+        $url = '/c2b/v1/registerurl';
         $response = $this->makeHttp($url, $body);
 
-        return $response();
-
+        return $response;
     }
+
+    public function stkPush(Request $request)
+    {
+        $timestamp = date('YmdHis');
+        $password = env('MPESA_STK_SHORTCODE').env('MPESA_PASSKEY').$timestamp;
+
+        $curl_post_data = array(
+            'BusinessShortCode' => env('MPESA_STK_SHORTCODE'),
+            'Password' => $password,
+            'Timestamp' => $timestamp,
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => '1',
+            'PartyA' => '600991',
+            'PartyB' => env('MPESA_STK_SHORTCODE'),
+            'PhoneNumber' => '254700814223',
+            'CallBackURL' => env('MPESA_TEST_URL'). '/api/stkpush',
+            'AccountReference' => 'CHAMAYETU',
+            'TransactionDesc' => 'CHAMAYETU'
+        );
+
+        $url = '/stkpush/v1/processrequest';
+
+        $response = $this->makeHttp($url, $curl_post_data);
+
+        return $response;
+    }
+
+    /**
+     * Simulate Transaction
+     */
+    public function simulateTransaction(Request $request)
+    {
+        $body = array(
+            'ShortCode' => env('MPESA_SHORTCODE'),
+            'Msisdn' => '254708374149',
+            'Amount' => $request->amount,
+            'BillRefNumber' => $request->account,
+            'CommandID' => 'CustomerPayBillOnline'
+        );
+
+        $url =  '/c2b/v1/simulate';
+        $response = $this->makeHttp($url, $body);
+
+        return $response;
+    }
+
+    /**
+     * Transaction status API
+     */
+    public function transactionStatus(Request $request)
+    {
+        $body =  array(
+            'Initiator' => env('MPESA_B2C_INITIATOR'),
+            'SecurityCredential' => env('MPESA_B2C_PASSWORD'),
+            'CommandID' => 'TransactionStatusQuery',
+            'TransactionID' => $request->transactionid,
+            'PartyA' => env('MPESA_SHORTCODE'),
+            'IdentifierType' => '4',
+            'ResultURL' => env('MPESA_TEST_URL'). '/api/transaction-status/result_url',
+            'QueueTimeOutURL' => env('MPESA_TEST_URL'). '/api/transaction-status/timeout_url',
+            'Remarks' => 'CheckTransaction',
+            'Occasion' => 'VerifyTransaction'
+        );
+
+        $url =  'transactionstatus/v1/query';
+        $response = $this->makeHttp($url, $body);
+
+        return $response;
+    }
+
+
+    public function reverseTransaction(Request $request){
+        $body = array(
+            'Initiator' => env('MPESA_B2C_INITIATOR'),
+            'SecurityCredential' => env('MPESA_B2C_PASSWORD'),
+            'CommandID' => 'TransactionReversal',
+            'TransactionID' => $request->transactionid,
+            'Amount' => $request->amount,
+            'ReceiverParty' => env('MPESA_SHORTCODE'),
+            'RecieverIdentifierType' => '11',
+            'ResultURL' => env('MPESA_TEST_URL') . '/api/reversal/result_url',
+            'QueueTimeOutURL' => env('MPESA_TEST_URL') . '/api/reversal/timeout_url',
+            'Remarks' => 'ReversalRequest',
+            'Occasion' => 'ErroneousPayment'
+        );
+
+        $url =  'reversal/v1/request';
+        $response = $this->makeHttp($url, $body);
+
+        return $response;
+    }
+
+
     public function makeHttp($url, $body)
     {
-//        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
+        // $url = 'https://mpesa-reflector.herokuapp.com' . $url;
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/' . $url;
         $curl = curl_init();
         curl_setopt_array(
             $curl,
@@ -61,79 +178,5 @@ class MpesaPaymentController extends Controller
         $curl_response = curl_exec($curl);
         curl_close($curl);
         return $curl_response;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

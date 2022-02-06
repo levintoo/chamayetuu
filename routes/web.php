@@ -47,7 +47,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/execute-payment', 'App\Http\Livewire\WalletComponent@execute');
         Route::post('/create-payment', 'App\Http\Livewire\WalletComponent@create')->name('create-payment');
         Route::post('/get-token', [MpesaPaymentController::class, 'getAccessToken'])->name('getAccessToken');
-        Route::post('/register-urls', [MpesaPaymentController::class, 'registerUrls'])->name('registerUrls');
+        Route::post('/register-urls', [MpesaPaymentController::class, 'registerURLS'])->name('registerURLS');
+        Route::post('/simulate-transaction', [MpesaPaymentController::class, 'simulateTransaction'])->name('simulateTransaction');
+        Route::post('/stk-push', [MpesaPaymentController::class, 'stkPush'])->name('stkPush');
         Route::get('/transactions',TransactionsComponent::class)->name('transactions');
         Route::get('/user-settings',UserSettingsComponent::class)->name('user-settings');
         Route::get('/loans',LoanComponent::class)->name('loans');

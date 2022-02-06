@@ -9,7 +9,6 @@
             color: #070707;
         }
     </style>
-{{--    <script src="https://cdn.tailwindcss.com"></script>--}}
 @endpush
 <div class="container">
     <div class="page-title">
@@ -67,8 +66,7 @@
             <div class="card">
                 <div class="card-header flex-row">
                     <h4 class="card-title">Invoice </h4>
-                    <a class="btn btn-primary" href="create-invoice.html"><span><i
-                                class="bi bi-plus"></i></span>Create </a>
+                    <a class="" ><span></span> </a>
                     <div>
                         <div class="sort-item orderby ">
                             <select name="orderby" class="sort-select" wire:model="sorting">

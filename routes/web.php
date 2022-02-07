@@ -11,6 +11,11 @@ use App\Http\Livewire\Admin\SecretaryApprovalComponent;
 use App\Http\Livewire\Admin\SecretaryApprovalProductComponent;
 use App\Http\Livewire\Admin\UserManagementComponent;
 use App\Http\Livewire\DashboardHomeComponent;
+use App\Http\Livewire\Home\AboutUsComponent;
+use App\Http\Livewire\Home\BlogComponent;
+use App\Http\Livewire\Home\ContactComponent;
+use App\Http\Livewire\Home\HomeComponent;
+use App\Http\Livewire\Home\PortfolioComponent;
 use App\Http\Livewire\LoanComponent;
 use App\Http\Livewire\NotificationComponent;
 use App\Http\Livewire\RegisterStepTwoComponent;
@@ -33,9 +38,14 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+Route::get('/', HomeComponent::class)->name('index-page');
+Route::get('/about',AboutUsComponent::class)->name('about');
+Route::get('/blog',BlogComponent::class)->name('blog');
+Route::get('/contact',ContactComponent::class)->name('contact');
+Route::get('/portfolio',PortfolioComponent::class)->name('portfolio');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {

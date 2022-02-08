@@ -234,23 +234,25 @@
 
     <div class="row mt-5">
         <div class="col-sm-8 mx-auto">
-            <div class="card">
+            <form class="card" action="{{route('getAccessToken')}}" method="POST">
+                @csrf
                 <div class="card-header">
                     Obtain Access Token
                 </div>
                 <div class="card-body">
                     <h4 id="access_token"></h4>
-                    <button id="getAccessToken" class="btn btn-primary">Request Access Token</button>
+                    <button type="submit" id="getAccessToken" class="btn btn-primary">Request Access Token</button>
                 </div>
-            </div>
+            </form>
 
-            <div class="card mt-5">
+            <form class="card mt-5" method="POST" action="{{route('registerURLS')}}">
+                @csrf
                 <div class="card-header">Register URLs</div>
                 <div class="card-body">
                     <div id="response"></div>
                     <button id="registerURLS" class="btn btn-primary">Register URLs</button>
                 </div>
-            </div>
+            </form>
 
             <div class="card mt-5">
                 <div class="card-header">Simulate Transaction</div>

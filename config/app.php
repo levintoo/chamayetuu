@@ -17,6 +17,16 @@ return [
 
     'sender_id' => env('SENDER_ID', ''),
     'sms_api_key' => env('SMS_API_KEY', ''),
+
+    'mpesa_consumer_key'=> env('MPESA_CONSUMER_KEY'),
+    'mpesa_consumer_secret'=> env('MPESA_CONSUMER_SECRET'),
+    'mpesa_shortcode'=> env('MPESA_SHORTCODE'),
+    'mpesa_stk_shortcode'=> env('MPESA_STK_SHORTCODE'),
+    'mpesa_env'=> env('MPESA_ENV'),
+    'mpesa_test_msisdn'=> env('MPESA_TEST_MSISDN'),
+    'mpesa_test_url'=> env('MPESA_TEST_URL'),
+    'mpesa_passkey'=> env('MPESA_PASSKEY'),
+    'mpesa_b2c_password'=> env('MPESA_B2C_PASSWORD'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

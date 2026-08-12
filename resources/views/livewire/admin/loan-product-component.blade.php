@@ -76,8 +76,9 @@
                                             <td>{{$loan->interest_rate}}</td>
                                             <td>{{$loan->interest_type}}</td>
                                             <td>
-                                                <a href="" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
-                                                <a class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                                <a href="{{ route('edit-loan-product',['loan_id'=>$loan->loan_id]) }}" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#1652F0"><i class="ri-edit-line"></i></span></a>
+                                                <a wire:click.prevent="deleteProduct('{{$loan->loan_id}}')" class="btn" style="background-color:transparent"><span class="fs-4 fst-normal" style="color:#FF0000FF"><i class="ri-delete-bin-6-line"></i></span></a>
+                                            </td>
                                             </td>
                                         </tr>
                                         @endforeach

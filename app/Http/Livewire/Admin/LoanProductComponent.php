@@ -12,18 +12,29 @@ class LoanProductComponent extends Component
 {
     public $sorting;
     public $pagesize;
+    public $display;
+    public $product;
 
     public function mount()
     {
         $this->sorting = "default";
         $this->pagesize = 10;
+        $this->display = 1;
     }
+
+    public function deleteProduct($id)
+    {
+        $product = LoanProduct::where('loan_id',$id)->first();
+        $product->delete();
+        session()->flash('message','Product has been deleted successfully');
+    }
+
     use WithPagination;
     public function render()
     {
         if($this->sorting=='date')
         {
-            $loans =  LoanProduct::orderBy('created_at','ASC')->paginate($this->pagesize);
+            $loans =  LoanProduct::orderBy('created_at','DESC')->paginate($this->pagesize);
         }
         else if($this->sorting=='date1')
         {
